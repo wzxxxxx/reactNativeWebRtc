@@ -2,10 +2,10 @@ import io from 'socket.io-client';
 import {RTCPeerConnection} from 'react-native-webrtc';
 import {DeviceEventEmitter} from "react-native";
 
-export async function initConnection(targetSocketId) {
+export async function initConnection(serverUrl, targetSocketId) {
     console.log(targetSocketId)
 
-    const serverUrl = 'http://localhost:3000'
+    serverUrl = serverUrl || 'http://localhost:3000'
     let socketId = uuid()
     let localPeerConnection = new RTCPeerConnection({audio: true, video: true})
     const offerOptions = {

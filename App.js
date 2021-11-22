@@ -23,7 +23,8 @@ import {initConnection} from "./webrtc";
 
 const App: () => Node = () => {
     const isDarkMode = useColorScheme() === 'dark';
-    const [text, setText] = useState('');
+    const [url, setServerUrl] = useState('');
+    const [userId, setUserId] = useState('');
     const [remoteStream, setRemoteStream] = useState(new MediaStream());
     const handleReceiveStream = useCallback(stream => {
         setRemoteStream(stream);
@@ -37,18 +38,28 @@ const App: () => Node = () => {
     }, [handleReceiveStream]);
 
     const connect = async () => {
-        await initConnection(text);
+        await initConnection(url, userId);
         // const stream = await mediaDevices.getUserMedia({ video: true });
         // setRemoteStream(stream);
     }
+
+    const disconnect = () => {
+        if (remoteStream) {
+            remoteStream.release();
+            setRemoteStream(null);
+        }
+    };
 
     return (
         <>
             <SafeAreaView style={styles.body}>
                 <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'}/>
+                <Text>Please enter server url.</Text>
+                <TextInput style={styles.userIdInput} onChangeText={url => setServerUrl(url)}/>
                 <Text>Please enter user id.</Text>
-                <TextInput style={styles.userIdInput} onChangeText={text => setText(text)}/>
+                <TextInput style={styles.userIdInput} onChangeText={id => setUserId(id)}/>
                 <Text onPress={connect}>Connect</Text>
+                <Text onPress={disconnect}>Disconnect</Text>
                 <RTCView streamURL={remoteStream?.toURL()} style={styles.video}/>
             </SafeAreaView>
         </>
