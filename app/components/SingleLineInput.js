@@ -4,7 +4,7 @@ import React from "react";
 
 
 export const SingleLineInput = (props) => {
-    const [text, setText] = useState('');
+    // const [text, setText] = useState('');
     return (
         <>
             <View style={{
@@ -22,11 +22,12 @@ export const SingleLineInput = (props) => {
                 }}>{props.label}
                 </Text>
                 <TextInput style={{
+                    width: 300,
                     height: 50,
                     alignSelf: 'center',
                     fontSize: 18,
                     color: 'black'
-                }} onChangeText={text => setText(text)}/>
+                }} onChangeText={text => props.get(text)}/>
             </View>
         </>
     )

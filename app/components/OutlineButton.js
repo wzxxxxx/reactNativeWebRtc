@@ -1,4 +1,4 @@
-import {Text, View} from "react-native";
+import {Text, TouchableOpacity, View} from "react-native";
 import React from "react";
 
 export const OutlineButton = (props) => {
@@ -6,15 +6,17 @@ export const OutlineButton = (props) => {
         <View style={{
             width: '100%',
             height: 40,
-            borderColor: 'blue',
+            borderColor: 'black',
             borderRadius: 4,
             borderWidth: 2,
             alignItems: "center",
             justifyContent: "center"
         }}>
-            <Text style={{
-                color: 'blue'
-            }}>{props.text}</Text>
+            <TouchableOpacity onPress={() => props.connect}>
+                <Text style={{
+                    color: 'black'
+                }}>{props.text}</Text>
+            </TouchableOpacity>
         </View>
     )
 }

@@ -32,7 +32,7 @@ const App: () => Node = () => {
     const disconnectProps = {text: 'Disconnect'};
     const [url, setServerUrl] = useState('');
     const [userId, setUserId] = useState('');
-    const [remoteStream, setRemoteStream] = useState(new MediaStream());
+    const [remoteStream, setRemoteStream] = useState(null);
     const handleReceiveStream = useCallback(stream => {
         setRemoteStream(stream);
     }, [remoteStream]);
@@ -45,6 +45,8 @@ const App: () => Node = () => {
     }, [handleReceiveStream]);
 
     const connect = async () => {
+        if(!url) alert('Please enter the server url');
+        if(!userId) alert('Please enter the user id');
         await initConnection(url, userId);
         // const stream = await mediaDevices.getUserMedia({ video: true });
         // setRemoteStream(stream);
@@ -62,9 +64,9 @@ const App: () => Node = () => {
             <SafeAreaView style={styles.body}>
                 <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'}/>
                 <Text style={styles.title}>Create New Connection</Text>
-                <SingleLineInput label={serverUrlLabel.label} setText={(value) => {setServerUrl(value)}}/>
+                <SingleLineInput label={serverUrlLabel.label} get={(value) => {setServerUrl(value)}}/>
                 {/*<TextInput multiline={4} style={styles.userIdInput} onChangeText={url => setServerUrl(url)}/>*/}
-                <SingleLineInput label={targetLabel.label} setText={(value) => {setUserId(value)}}/>
+                <SingleLineInput label={targetLabel.label} get={(value) => {setUserId(value)}}/>
                 {/*<TextInput style={styles.userIdInput} onChangeText={id => setUserId(id)}/>*/}
                 <View style={{
                     flexDirection: "row",
@@ -74,7 +76,7 @@ const App: () => Node = () => {
                     paddingRight: 20
                 }}>
                     {/*<OutlineButton {...disconnectProps} />*/}
-                    <OutlineButton text={connectProps.text} />
+                    <OutlineButton text={connectProps.text} connect={() => connect()}/>
                 </View>
                 {/*<Text onPress={connect}>Connect</Text>*/}
                 {/*<Text onPress={disconnect}>Disconnect</Text>*/}
@@ -96,15 +98,15 @@ const styles = StyleSheet.create({
         fontWeight: '800',
         margin: 20,
     },
-    userIdInput: {
-        width: 100,
-        height: 30,
-        marginBottom: 30,
-        fontSize: 18,
-        backgroundColor: '#fff',
-        borderColor: 'black',
-        borderBottomWidth: 1,
-    },
+    // userIdInput: {
+    //     width: 100,
+    //     height: 30,
+    //     marginBottom: 30,
+    //     fontSize: 18,
+    //     backgroundColor: '#fff',
+    //     borderColor: 'black',
+    //     borderBottomWidth: 1,
+    // },
     video: {
         flex: 1,
     }
