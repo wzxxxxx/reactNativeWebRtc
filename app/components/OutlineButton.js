@@ -2,20 +2,20 @@ import {Text, TouchableOpacity, View} from "react-native";
 import React from "react";
 
 export const OutlineButton = (props) => {
+    const {text, connect} = props;
     return (
         <View style={{
             width: '100%',
             height: 40,
-            borderColor: 'black',
+            backgroundColor: 'blue',
             borderRadius: 4,
-            borderWidth: 2,
             alignItems: "center",
             justifyContent: "center"
         }}>
-            <TouchableOpacity onPress={() => props.connect}>
+            <TouchableOpacity onPress={() => connect()}>
                 <Text style={{
-                    color: 'black'
-                }}>{props.text}</Text>
+                    color: 'white'
+                }}>{text}</Text>
             </TouchableOpacity>
         </View>
     )

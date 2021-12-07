@@ -1,10 +1,8 @@
 import {Text, TextInput, View} from "react-native";
-import {useState} from "react";
 import React from "react";
 
 
 export const SingleLineInput = (props) => {
-    // const [text, setText] = useState('');
     return (
         <>
             <View style={{
