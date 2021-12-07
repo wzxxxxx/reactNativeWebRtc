@@ -4,7 +4,6 @@ import React from "react";
 
 
 export const SingleLineInput = (props) => {
-    // const [text, setText] = useState('');
     return (
         <>
             <View style={{

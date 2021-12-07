@@ -2,7 +2,7 @@ import io from 'socket.io-client';
 import {RTCPeerConnection} from 'react-native-webrtc';
 import {DeviceEventEmitter} from "react-native";
 
-export async function initConnection(serverUrl, targetSocketId) {
+export function initConnection(serverUrl, targetSocketId) {
     console.log(targetSocketId)
 
     serverUrl = serverUrl || 'http://localhost:3000'
@@ -54,14 +54,15 @@ export async function initConnection(serverUrl, targetSocketId) {
         const stream = localPeerConnection.getRemoteStreams()[0]
         DeviceEventEmitter.emit('stream', stream)
     })
-    const offer = await localPeerConnection.createOffer(offerOptions)
-    await localPeerConnection.setLocalDescription(offer)
-    const message = {
-        srcId: socketId,
-        dstId: targetSocketId,
-        offer: offer
-    }
-    socket.emit('offer', message)
+    localPeerConnection.createOffer(offerOptions).then(offer => {
+        localPeerConnection.setLocalDescription(offer)
+        const message = {
+            srcId: socketId,
+            dstId: targetSocketId,
+            offer: offer
+        }
+        socket.emit('offer', message)
+    })
 }
 
 function uuid() {
