@@ -1,9 +1,10 @@
-import {DeviceEventEmitter, StyleSheet, Text} from "react-native";
+import {DeviceEventEmitter, StyleSheet} from "react-native";
 import React, {useCallback, useEffect, useState} from "react";
 import {initConnection} from "../webrtc";
 import {RTCView} from "react-native-webrtc";
 import {Colors} from "react-native/Libraries/NewAppScreen";
 import SafeAreaView from "react-native/Libraries/Components/SafeAreaView/SafeAreaView";
+import {OutlineButton} from "./OutlineButton";
 
 const Video = ({route}) => {
     const {url, id} = route.params;
@@ -11,7 +12,9 @@ const Video = ({route}) => {
     const handleReceiveStream = useCallback(stream => {
         setRemoteStream(stream);
     }, [remoteStream]);
-    initConnection(url, id);
+    useEffect(() => {
+        initConnection(url, id);
+    }, []);
 
     useEffect(() => {
         const listener = DeviceEventEmitter.addListener('stream', handleReceiveStream);
@@ -19,6 +22,13 @@ const Video = ({route}) => {
             listener.remove();
         }
     }, [handleReceiveStream]);
+
+    const disconnect = () => {
+        if (remoteStream) {
+            remoteStream.release();
+            setRemoteStream(null);
+        }
+    }
 
     return (
         <>
@@ -29,6 +39,7 @@ const Video = ({route}) => {
                 {
                     remoteStream && <RTCView streamURL={remoteStream?.toURL()} style={{flex: 1}}/>
                 }
+                <OutlineButton text={"Disconnect"} onPress={disconnect}/>
             </SafeAreaView>
         </>
     );

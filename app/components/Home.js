@@ -24,7 +24,6 @@ const Home = ({navigation}) => {
     const serverUrlLabel = {label: 'Server Url:'};
     const targetLabel = {label: 'Target ID:'};
     const connectProps = {text: 'Connect'};
-    const disconnectProps = {text: 'Disconnect'};
     const [url, setServerUrl] = useState('');
     const [userId, setUserId] = useState('');
 
@@ -45,13 +44,6 @@ const Home = ({navigation}) => {
         // const stream = await mediaDevices.getUserMedia({ video: true });
         // setRemoteStream(stream);
     }
-
-    // const disconnect = () => {
-    //     if (remoteStream) {
-    //         remoteStream.release();
-    //         setRemoteStream(null);
-    //     }
-    // };
 
     return (
         <>
@@ -74,7 +66,7 @@ const Home = ({navigation}) => {
                     paddingLeft: 20,
                     paddingRight: 20
                 }}>
-                    <OutlineButton text={connectProps.text} connect={connect}/>
+                    <OutlineButton text={connectProps.text} onPress={connect}/>
                 </View>
             </SafeAreaView>
         </>

@@ -2,7 +2,7 @@ import {Text, TouchableOpacity, View} from "react-native";
 import React from "react";
 
 export const OutlineButton = (props) => {
-    const {text, connect} = props;
+    const {text, onPress} = props;
     return (
         <View style={{
             width: '100%',
@@ -12,7 +12,7 @@ export const OutlineButton = (props) => {
             alignItems: "center",
             justifyContent: "center"
         }}>
-            <TouchableOpacity onPress={() => connect()}>
+            <TouchableOpacity onPress={() => onPress()}>
                 <Text style={{
                     color: 'white'
                 }}>{text}</Text>
