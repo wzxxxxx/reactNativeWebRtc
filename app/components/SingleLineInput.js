@@ -1,5 +1,4 @@
 import {Text, TextInput, View} from "react-native";
-import {useState} from "react";
 import React from "react";
 
 
@@ -26,7 +25,7 @@ export const SingleLineInput = (props) => {
                     alignSelf: 'center',
                     fontSize: 18,
                     color: 'black'
-                }} onChangeText={text => props.get(text)}/>
+                }} onChangeText={text => props.get(text)} autoCorrect={false} autoCapitalize={"none"}/>
             </View>
         </>
     )

@@ -1,76 +1,44 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
-import React, {useState} from 'react';
-import {
-    SafeAreaView,
-    StatusBar,
-    StyleSheet,
-    Text,
-    useColorScheme, View,
-} from 'react-native';
-
-import {Colors} from 'react-native/Libraries/NewAppScreen';
-import {SingleLineInput} from "./SingleLineInput";
 import {OutlineButton} from "./OutlineButton";
+import React from "react";
+import {useEffect} from "react";
+import {Colors} from "react-native/Libraries/NewAppScreen";
+import {FlatList, StatusBar, StyleSheet, Text, View} from "react-native";
+import SafeAreaView from "react-native/Libraries/Components/SafeAreaView/SafeAreaView";
+import ListItem from "./ListItem";
 
 const Home = ({navigation}) => {
-    const isDarkMode = useColorScheme() === 'dark';
-    const serverUrlLabel = {label: 'Server Url:'};
-    const targetLabel = {label: 'Target ID:'};
-    const connectProps = {text: 'Connect'};
-    const [url, setServerUrl] = useState('');
-    const [userId, setUserId] = useState('');
 
-    const connect = async () => {
-        // if(!url) {
-        //     alert('Please enter the server url');
-        //     return;
-        // }
-        if(!userId) {
-            alert('Please enter the user id');
-            return;
-        }
-        navigation.navigate('Video', {
-            url: url,
-            id: userId
-        });
+    // const connectionList = [{
+    //     id: "1"
+    // }, {
+    //     id: "2"
+    // }];
 
-        // const stream = await mediaDevices.getUserMedia({ video: true });
-        // setRemoteStream(stream);
-    }
+    const connectionList = [];
 
     return (
-        <>
-            <SafeAreaView style={{
-                backgroundColor: Colors.white,
-                ...StyleSheet.absoluteFill
+        <SafeAreaView style={{
+            backgroundColor: Colors.white,
+            ...StyleSheet.absoluteFill
+        }}>
+            <View style={{
+                padding: 20
             }}>
-                <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'}/>
-                <Text style={{
-                    fontSize: 28,
-                    fontWeight: '800',
-                    margin: 20,
-                }}>Create New Connection</Text>
-                <SingleLineInput label={serverUrlLabel.label} get={(value) => {setServerUrl(value)}}/>
-                <SingleLineInput label={targetLabel.label} get={(value) => {setUserId(value)}}/>
-                <View style={{
-                    flexDirection: "row",
-                    justifyContent: "space-around",
-                    marginTop: 20,
-                    paddingLeft: 20,
-                    paddingRight: 20
-                }}>
-                    <OutlineButton text={connectProps.text} onPress={connect}/>
-                </View>
-            </SafeAreaView>
-        </>
-    );
-};
+                <OutlineButton text={'Create New Connection'} onPress={() => navigation.navigate('Create Connection')}/>
+            </View>
+            <ConnectionList connectionList={connectionList}/>
+        </SafeAreaView>)
+}
+
+const ConnectionList = (props) => {
+    const connectionList = props.connectionList;
+    if (connectionList.length > 0) {
+        const renderItem = ({item}) => (
+            <ListItem id={item.id}/>
+        );
+        return (<FlatList data={connectionList} renderItem={renderItem}/>)
+    }
+    return <Text>{'No Histories.'}</Text>
+}
 
 export default Home;
