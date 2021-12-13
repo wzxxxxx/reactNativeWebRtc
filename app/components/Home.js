@@ -1,20 +1,28 @@
 import {OutlineButton} from "./OutlineButton";
-import React from "react";
+import React, {useState} from "react";
 import {useEffect} from "react";
 import {Colors} from "react-native/Libraries/NewAppScreen";
-import {FlatList, StatusBar, StyleSheet, Text, View} from "react-native";
+import {FlatList, StyleSheet, Text, View} from "react-native";
 import SafeAreaView from "react-native/Libraries/Components/SafeAreaView/SafeAreaView";
 import ListItem from "./ListItem";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Home = ({navigation}) => {
 
-    // const connectionList = [{
-    //     id: "1"
-    // }, {
-    //     id: "2"
-    // }];
+    const [connectionList, setConnectionList] = useState([]);
 
-    const connectionList = [];
+    useEffect( () => {
+        getHistory();
+    }, []);
+
+    const getHistory = async () => {
+        try {
+            const historyString = await AsyncStorage.getItem('history');
+            setConnectionList(historyString ? JSON.parse(historyString) : []);
+        } catch (e) {
+            alert(e);
+        }
+    }
 
     return (
         <SafeAreaView style={{
@@ -25,8 +33,8 @@ const Home = ({navigation}) => {
                 padding: 20
             }}>
                 <OutlineButton text={'Create New Connection'} onPress={() => navigation.navigate('Create Connection')}/>
+                <ConnectionList connectionList={connectionList}/>
             </View>
-            <ConnectionList connectionList={connectionList}/>
         </SafeAreaView>)
 }
 

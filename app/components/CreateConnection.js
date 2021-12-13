@@ -52,11 +52,6 @@ const CreateConnection = ({navigation}) => {
                 ...StyleSheet.absoluteFill
             }}>
                 <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'}/>
-                <Text style={{
-                    fontSize: 28,
-                    fontWeight: '800',
-                    margin: 20,
-                }}>Create New Connection</Text>
                 <SingleLineInput label={serverUrlLabel.label} get={(value) => {setServerUrl(value)}}/>
                 <SingleLineInput label={targetLabel.label} get={(value) => {setUserId(value)}}/>
                 <View style={{
