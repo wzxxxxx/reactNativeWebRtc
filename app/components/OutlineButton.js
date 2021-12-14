@@ -7,7 +7,7 @@ export const OutlineButton = (props) => {
         <View style={{
             width: '100%',
             height: 40,
-            backgroundColor: 'blue',
+            backgroundColor: 'green',
             borderRadius: 4,
             alignItems: "center",
             justifyContent: "center"

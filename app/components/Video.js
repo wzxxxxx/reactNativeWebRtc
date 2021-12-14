@@ -5,13 +5,28 @@ import {RTCView} from "react-native-webrtc";
 import {Colors} from "react-native/Libraries/NewAppScreen";
 import SafeAreaView from "react-native/Libraries/Components/SafeAreaView/SafeAreaView";
 import {OutlineButton} from "./OutlineButton";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Video = ({route}) => {
     const {url, id} = route.params;
     const [remoteStream, setRemoteStream] = useState(null);
-    const handleReceiveStream = useCallback(stream => {
+
+    const handleReceiveStream = useCallback(async stream => {
         setRemoteStream(stream);
+        setHistoryRecord();
     }, [remoteStream]);
+
+    const setHistoryRecord = async () => {
+        try {
+            const historyString = await AsyncStorage.getItem('history');
+            const history = historyString ? JSON.parse(historyString) : [];
+            history.push({id: id, time: new Date().getTime()});
+            await AsyncStorage.setItem('history', JSON.stringify(history));
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
     useEffect(() => {
         initConnection(url, id);
     }, []);
