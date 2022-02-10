@@ -6,6 +6,7 @@ import {Colors} from "react-native/Libraries/NewAppScreen";
 import SafeAreaView from "react-native/Libraries/Components/SafeAreaView/SafeAreaView";
 import {OutlineButton} from "./OutlineButton";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { t } from 'react-native-tailwindcss';
 
 const Video = ({route}) => {
     const {url, id} = route.params;
@@ -52,7 +53,7 @@ const Video = ({route}) => {
                 ...StyleSheet.absoluteFill
             }}>
                 {
-                    remoteStream && <RTCView streamURL={remoteStream?.toURL()} style={{flex: 1}}/>
+                    remoteStream && <RTCView streamURL={remoteStream?.toURL()} style={[t.flex1]}/>
                 }
                 <OutlineButton text={"Disconnect"} onPress={disconnect}/>
             </SafeAreaView>

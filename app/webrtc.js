@@ -7,7 +7,7 @@ export function initConnection(serverUrl, targetSocketId) {
 
     serverUrl = serverUrl || 'http://localhost:3000'
     let socketId = uuid()
-    let localPeerConnection = new RTCPeerConnection({audio: true, video: true})
+    let localPeerConnection = new RTCPeerConnection({iceServers: [{urls: 'stun:81.70.10.29:3478'}]})
     const offerOptions = {
         offerToReceiveAudio: 1,
         offerToReceiveVideo: 1
@@ -45,15 +45,15 @@ export function initConnection(serverUrl, targetSocketId) {
             console.log('ICE state change event: ', event)
         }
     })
-    // localPeerConnection.ontrack = (event) => {
-    //     console.log(`-------------receive remote stream`)
-    //     DeviceEventEmitter.emit('stream', event.streams[0])
-    // }
-    localPeerConnection.addEventListener('addstream', event => {
-        console.log(`----------------${JSON.stringify(event)}`)
-        const stream = localPeerConnection.getRemoteStreams()[0]
-        DeviceEventEmitter.emit('stream', stream)
-    })
+    localPeerConnection.ontrack = (event) => {
+        console.log(`-------------receive remote stream`)
+        DeviceEventEmitter.emit('stream', event.streams[0])
+    }
+    // localPeerConnection.addEventListener('addstream', event => {
+    //     console.log(`----------------${JSON.stringify(event)}`)
+    //     const stream = localPeerConnection.getRemoteStreams()[0]
+    //     DeviceEventEmitter.emit('stream', stream)
+    // })
     localPeerConnection.createOffer(offerOptions).then(offer => {
         localPeerConnection.setLocalDescription(offer)
         const message = {

@@ -1,22 +1,13 @@
 import {Text, TouchableOpacity, View} from "react-native";
 import React from "react";
+import {t} from 'react-native-tailwindcss';
 
 export const OutlineButton = (props) => {
-    const {text, connect} = props;
+    const {text, onPress} = props;
     return (
-        <View style={{
-            width: '100%',
-            height: 40,
-            backgroundColor: 'green',
-            borderRadius: 4,
-            alignItems: "center",
-            justifyContent: "center"
-        }}>
-            <TouchableOpacity onPress={() => connect()}>
-                <Text style={{
-                    color: 'white'
-                }}>{text}</Text>
-            </TouchableOpacity>
-        </View>
+        <TouchableOpacity onPress={() => onPress()}
+                          style={[t.wFull, t.h10, t.bgGreen500, t.rounded, t.flex, t.itemsCenter, t.justifyCenter]}>
+            <Text style={[t.textWhite, t.textBase]}>{text} </Text>
+        </TouchableOpacity>
     )
 }
