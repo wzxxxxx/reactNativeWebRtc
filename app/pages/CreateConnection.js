@@ -16,8 +16,8 @@ import {
 } from 'react-native';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
-import {SingleLineInput} from "./SingleLineInput";
-import {OutlineButton} from "./OutlineButton";
+import {SingleLineInput} from "../components/SingleLineInput";
+import {OutlineButton} from "../components/OutlineButton";
 
 const CreateConnection = ({navigation}) => {
     const isDarkMode = useColorScheme() === 'dark';

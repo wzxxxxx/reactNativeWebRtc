@@ -10,10 +10,10 @@ import React from 'react';
 import type {Node} from 'react';
 
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
-import CreateConnection from "./components/CreateConnection";
+import CreateConnection from "./pages/CreateConnection";
 import {NavigationContainer} from "@react-navigation/native";
-import Video from "./components/Video";
-import Home from "./components/Home";
+import Video from "./pages/Video";
+import Home from "./pages/Home";
 
 const App: () => Node = () => {
     const Stack = createNativeStackNavigator();

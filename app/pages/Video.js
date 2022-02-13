@@ -4,7 +4,7 @@ import {initConnection} from "../webrtc";
 import {RTCView} from "react-native-webrtc";
 import {Colors} from "react-native/Libraries/NewAppScreen";
 import SafeAreaView from "react-native/Libraries/Components/SafeAreaView/SafeAreaView";
-import {OutlineButton} from "./OutlineButton";
+import {OutlineButton} from "../components/OutlineButton";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { t } from 'react-native-tailwindcss';
 

@@ -1,10 +1,10 @@
-import {OutlineButton} from "./OutlineButton";
+import {OutlineButton} from "../components/OutlineButton";
 import React, {useState} from "react";
 import {useEffect} from "react";
 import {Colors} from "react-native/Libraries/NewAppScreen";
 import {FlatList, StyleSheet, Text, View} from "react-native";
 import SafeAreaView from "react-native/Libraries/Components/SafeAreaView/SafeAreaView";
-import ListItem from "./ListItem";
+import ListItem from "../components/ListItem";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Home = ({navigation}) => {
