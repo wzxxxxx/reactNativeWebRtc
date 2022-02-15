@@ -18,14 +18,17 @@ import {
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {SingleLineInput} from "../components/SingleLineInput";
 import {OutlineButton} from "../components/OutlineButton";
+import { t } from 'react-native-tailwindcss';
 
 const CreateConnection = ({navigation}) => {
     const isDarkMode = useColorScheme() === 'dark';
-    const serverUrlLabel = {label: 'Server Url:'};
+    const serverUrlLabel = {label: 'Signal Server:'};
     const targetLabel = {label: 'Target ID:'};
     const connectProps = {text: 'Connect'};
-    const [url, setServerUrl] = useState('');
+    const [signalServerUrl, setSignalServerUrl] = useState('');
     const [userId, setUserId] = useState('');
+    const [stunServerUrl, setStunServerUrl] = useState('');
+    const [turnServerUrl, setTurnServerUrl] = useState('');
 
     const connect = async () => {
         // if(!url) {
@@ -37,12 +40,9 @@ const CreateConnection = ({navigation}) => {
             return;
         }
         navigation.navigate('Video', {
-            url: url,
+            url: signalServerUrl,
             id: userId
         });
-
-        // const stream = await mediaDevices.getUserMedia({ video: true });
-        // setRemoteStream(stream);
     }
 
     return (
@@ -52,15 +52,11 @@ const CreateConnection = ({navigation}) => {
                 ...StyleSheet.absoluteFill
             }}>
                 <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'}/>
-                <SingleLineInput label={serverUrlLabel.label} get={(value) => {setServerUrl(value)}}/>
+                <SingleLineInput label={serverUrlLabel.label} get={(value) => {setSignalServerUrl(value)}}/>
                 <SingleLineInput label={targetLabel.label} get={(value) => {setUserId(value)}}/>
-                <View style={{
-                    flexDirection: "row",
-                    justifyContent: "space-around",
-                    marginTop: 30,
-                    paddingLeft: 20,
-                    paddingRight: 20
-                }}>
+                <SingleLineInput label={'Stun Server:'} get={(value) => {setStunServerUrl(value)}}/>
+                <SingleLineInput label={'Turn Server:'} get={(value) => {setTurnServerUrl(value)}}/>
+                <View style={[t.flex, t.justifyAround, t.mT8, t.pL4, t.pR4]}>
                     <OutlineButton text={connectProps.text} onPress={connect}/>
                 </View>
             </SafeAreaView>
