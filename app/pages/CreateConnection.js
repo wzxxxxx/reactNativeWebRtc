@@ -20,6 +20,7 @@ import {SingleLineInput} from "../components/SingleLineInput";
 import {OutlineButton} from "../components/OutlineButton";
 import { t } from 'react-native-tailwindcss';
 
+
 const CreateConnection = ({navigation}) => {
     const isDarkMode = useColorScheme() === 'dark';
     const serverUrlLabel = {label: 'Signal Server:'};
@@ -40,8 +41,10 @@ const CreateConnection = ({navigation}) => {
             return;
         }
         navigation.navigate('Video', {
-            url: signalServerUrl,
-            id: userId
+            signalServerUrl: signalServerUrl,
+            id: userId,
+            stunServerUrl: stunServerUrl,
+            turnServerUrl: turnServerUrl
         });
     }
 
@@ -52,10 +55,16 @@ const CreateConnection = ({navigation}) => {
                 ...StyleSheet.absoluteFill
             }}>
                 <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'}/>
-                <SingleLineInput label={serverUrlLabel.label} get={(value) => {setSignalServerUrl(value)}}/>
+                <Text>Signal Server</Text>
+                <SingleLineInput label={'IP address:'} get={(value) => {setSignalServerUrl(value)}}/>
+                <SingleLineInput label={'Port:'} get={(value) => {setSignalServerUrl(value)}}/>
                 <SingleLineInput label={targetLabel.label} get={(value) => {setUserId(value)}}/>
-                <SingleLineInput label={'Stun Server:'} get={(value) => {setStunServerUrl(value)}}/>
-                <SingleLineInput label={'Turn Server:'} get={(value) => {setTurnServerUrl(value)}}/>
+                <Text>Stun Server</Text>
+                <SingleLineInput label={'IP address:'} get={(value) => {setStunServerUrl(value)}}/>
+                <SingleLineInput label={'Port:'} get={(value) => {setStunServerUrl(value)}}/>
+                <Text>Turn Server</Text>
+                <SingleLineInput label={'IP address:'} get={(value) => {setTurnServerUrl(value)}}/>
+                <SingleLineInput label={'Port:'} get={(value) => {setTurnServerUrl(value)}}/>
                 <View style={[t.flex, t.justifyAround, t.mT8, t.pL4, t.pR4]}>
                     <OutlineButton text={connectProps.text} onPress={connect}/>
                 </View>

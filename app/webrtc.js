@@ -2,30 +2,27 @@ import io from 'socket.io-client';
 import {RTCPeerConnection} from 'react-native-webrtc';
 import {DeviceEventEmitter} from "react-native";
 
-export function initConnection(serverUrl, targetSocketId) {
-    console.log(targetSocketId)
-
-    serverUrl = serverUrl || 'http://localhost:3000'
-    let socketId = uuid()
-    let localPeerConnection = new RTCPeerConnection({iceServers: [{urls: 'stun:81.70.10.29:3478'}]})
+export function initConnection(signalServerUrl, targetSocketId, stunServerUrl, turnServerUrl) {
+    let socketId = uuid();
+    let localPeerConnection = new RTCPeerConnection({iceServers: [{urls: stunServerUrl}, {urls: turnServerUrl}]});
     const offerOptions = {
         offerToReceiveAudio: 1,
         offerToReceiveVideo: 1
-    }
-    const socket = io(serverUrl)
+    };
+    const socket = io(signalServerUrl);
     socket.on('connect', () => {
         socket.send(socketId)
-    })
+    });
     socket.on('connect_error', () => {
         console.log('connect_error')
-    })
+    });
     socket.on('answer', (desc) => {
         console.log("I got answer: ", desc)
         localPeerConnection.setRemoteDescription(desc?.offer)
-    })
+    });
     socket.on('onicecandidate', (candidate) => {
         localPeerConnection.addIceCandidate(candidate)
-    })
+    });
 
     localPeerConnection.addEventListener('icecandidate', event => {
         console.log('I got my icecandidate info')
@@ -38,17 +35,17 @@ export function initConnection(serverUrl, targetSocketId) {
             candidate: event.candidate
         }
         socket.emit('onicecandidate', message)
-    })
+    });
     localPeerConnection.addEventListener('iceconnectionstatechange', event => {
         if (localPeerConnection) {
             console.log(`ICE state: ${localPeerConnection.iceConnectionState}`)
             console.log('ICE state change event: ', event)
         }
-    })
+    });
     localPeerConnection.ontrack = (event) => {
         console.log(`-------------receive remote stream`)
         DeviceEventEmitter.emit('stream', event.streams[0])
-    }
+    };
     // localPeerConnection.addEventListener('addstream', event => {
     //     console.log(`----------------${JSON.stringify(event)}`)
     //     const stream = localPeerConnection.getRemoteStreams()[0]
@@ -62,7 +59,7 @@ export function initConnection(serverUrl, targetSocketId) {
             offer: offer
         }
         socket.emit('offer', message)
-    })
+    });
 }
 
 function uuid() {

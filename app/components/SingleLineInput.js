@@ -6,7 +6,7 @@ export const SingleLineInput = (props) => {
     return (
         <View style={[t.flexRow, t.itemsCenter, t.h100, t.borderB, t.borderGray300]}>
             <Text style={[t.w100, t.p4, t.textBase]}>{props.label}</Text>
-            <TextInput style={[t.alignCenter, t.textBase, t.textBlack]}
+            <TextInput style={[t.alignCenter, t.textBase, t.textBlack, t.wFull]}
                        onChangeText={text => props.get(text)} autoCorrect={false} autoCapitalize={"none"}/>
         </View>
     )

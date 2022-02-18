@@ -9,7 +9,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { t } from 'react-native-tailwindcss';
 
 const Video = ({route}) => {
-    const {url, id} = route.params;
+    const {signalServerUrl, id, stunServerUrl, turnServerUrl} = route.params;
     const [remoteStream, setRemoteStream] = useState(null);
 
     const handleReceiveStream = useCallback(async stream => {
@@ -29,7 +29,7 @@ const Video = ({route}) => {
     }
 
     useEffect(() => {
-        initConnection(url, id);
+        initConnection(signalServerUrl, id, stunServerUrl, turnServerUrl);
     }, []);
 
     useEffect(() => {

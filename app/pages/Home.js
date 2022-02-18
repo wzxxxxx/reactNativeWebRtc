@@ -6,6 +6,7 @@ import {FlatList, StyleSheet, Text, View} from "react-native";
 import SafeAreaView from "react-native/Libraries/Components/SafeAreaView/SafeAreaView";
 import ListItem from "../components/ListItem";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { t } from 'react-native-tailwindcss';
 
 const Home = ({navigation}) => {
 
@@ -29,9 +30,7 @@ const Home = ({navigation}) => {
             backgroundColor: Colors.white,
             ...StyleSheet.absoluteFill
         }}>
-            <View style={{
-                padding: 20
-            }}>
+            <View style={[t.p4]}>
                 <OutlineButton text={'Create New Connection'} onPress={() => navigation.navigate('Create Connection')}/>
                 <ConnectionList connectionList={connectionList}/>
             </View>
