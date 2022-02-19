@@ -1,14 +1,24 @@
-import {Text, View} from "react-native";
+import {Text} from "react-native";
 import React from "react";
-import {t} from 'react-native-tailwindcss';
+import styled from "styled-components/native"
 
 const ListItem = (props) => {
     const {id} = props;
     return(
-        <View style={[t.flex, t.flexRow, t.h50, t.pL20, t.alignCenter, t.borderGray500]}>
+        <Container>
             <Text>{id}</Text>
-        </View>
+        </Container>
     )
 }
+
+const Container = styled.View`
+  flex-direction: row;
+  width: 100%;
+  height: 50px;
+  padding-left: 20px;
+  align-items: center;
+  border-bottom-width: 1px;
+  border-color: #eeeeee;
+`
 
 export default ListItem;

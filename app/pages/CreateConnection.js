@@ -11,41 +11,65 @@ import {
     SafeAreaView,
     StatusBar,
     StyleSheet,
-    Text,
     useColorScheme, View,
 } from 'react-native';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
-import {SingleLineInput} from "../components/SingleLineInput";
-import {OutlineButton} from "../components/OutlineButton";
-import { t } from 'react-native-tailwindcss';
-
+import {InputWithLabel} from "../components/InputWithLabel";
+import {Button} from "../components/Button";
+import styled from "styled-components/native"
 
 const CreateConnection = ({navigation}) => {
     const isDarkMode = useColorScheme() === 'dark';
-    const serverUrlLabel = {label: 'Signal Server:'};
     const targetLabel = {label: 'Target ID:'};
     const connectProps = {text: 'Connect'};
-    const [signalServerUrl, setSignalServerUrl] = useState('');
+    const [signalServer, setSignalServer] = useState({
+        protocol: '',
+        ip: '',
+        port: ''
+    });
     const [userId, setUserId] = useState('');
-    const [stunServerUrl, setStunServerUrl] = useState('');
-    const [turnServerUrl, setTurnServerUrl] = useState('');
+    const [stunServer, setStunServer] = useState({
+        ip: '',
+        port: ''
+    });
+    const [turnServer, setTurnServer] = useState({
+        ip: '',
+        port: ''
+    });
 
     const connect = async () => {
-        // if(!url) {
-        //     alert('Please enter the server url');
-        //     return;
-        // }
         if(!userId) {
             alert('Please enter the user id');
             return;
         }
         navigation.navigate('Video', {
-            signalServerUrl: signalServerUrl,
+            signalServer: signalServer,
             id: userId,
-            stunServerUrl: stunServerUrl,
-            turnServerUrl: turnServerUrl
+            stunServer: stunServer,
+            turnServerUrl: turnServer
         });
+    }
+
+    const setSignalServerInfo = (key, value) => {
+        setSignalServer(prev => {
+            prev[key] = value;
+            return prev;
+        })
+    }
+
+    const setStunServerInfo = (key, value) => {
+        setStunServer(prev => {
+            prev[key] = value;
+            return prev;
+        })
+    }
+
+    const setTurnServerInfo = (key, value) => {
+        setTurnServer(prev => {
+            prev[key] = value;
+            return prev;
+        })
     }
 
     return (
@@ -55,22 +79,32 @@ const CreateConnection = ({navigation}) => {
                 ...StyleSheet.absoluteFill
             }}>
                 <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'}/>
-                <Text>Signal Server</Text>
-                <SingleLineInput label={'IP address:'} get={(value) => {setSignalServerUrl(value)}}/>
-                <SingleLineInput label={'Port:'} get={(value) => {setSignalServerUrl(value)}}/>
-                <SingleLineInput label={targetLabel.label} get={(value) => {setUserId(value)}}/>
-                <Text>Stun Server</Text>
-                <SingleLineInput label={'IP address:'} get={(value) => {setStunServerUrl(value)}}/>
-                <SingleLineInput label={'Port:'} get={(value) => {setStunServerUrl(value)}}/>
-                <Text>Turn Server</Text>
-                <SingleLineInput label={'IP address:'} get={(value) => {setTurnServerUrl(value)}}/>
-                <SingleLineInput label={'Port:'} get={(value) => {setTurnServerUrl(value)}}/>
-                <View style={[t.flex, t.justifyAround, t.mT8, t.pL4, t.pR4]}>
-                    <OutlineButton text={connectProps.text} onPress={connect}/>
+                <Title>Signal Server</Title>
+                <InputWithLabel label={'Protocol:'} get={(value) => {setSignalServerInfo('protocol', value)}}/>
+                <InputWithLabel label={'IP address:'} get={(value) => {setSignalServerInfo('ip', value)}}/>
+                <InputWithLabel label={'Port:'} get={(value) => {setSignalServerInfo('port', value)}}/>
+
+                <InputWithLabel label={targetLabel.label} get={(value) => {setUserId(value)}}/>
+
+                <Title>Stun Server</Title>
+                <InputWithLabel label={'IP address:'} get={(value) => {setStunServerInfo('ip', value)}}/>
+                <InputWithLabel label={'Port:'} get={(value) => {setStunServerInfo('port', value)}}/>
+
+                <Title>Turn Server</Title>
+                <InputWithLabel label={'IP address:'} get={(value) => {setTurnServerInfo('ip', value)}}/>
+                <InputWithLabel label={'Port:'} get={(value) => {setTurnServerInfo('port', value)}}/>
+                <View>
+                    <Button text={connectProps.text} onPress={connect}/>
                 </View>
             </SafeAreaView>
         </>
     );
 };
+
+const Title = styled.Text`
+  font-size: 18px;
+  font-weight: 600;
+  padding: 10px;
+`
 
 export default CreateConnection;

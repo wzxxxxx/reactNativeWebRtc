@@ -4,9 +4,8 @@ import {initConnection} from "../webrtc";
 import {RTCView} from "react-native-webrtc";
 import {Colors} from "react-native/Libraries/NewAppScreen";
 import SafeAreaView from "react-native/Libraries/Components/SafeAreaView/SafeAreaView";
-import {OutlineButton} from "../components/OutlineButton";
+import {Button} from "../components/Button";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { t } from 'react-native-tailwindcss';
 
 const Video = ({route}) => {
     const {signalServerUrl, id, stunServerUrl, turnServerUrl} = route.params;
@@ -53,9 +52,9 @@ const Video = ({route}) => {
                 ...StyleSheet.absoluteFill
             }}>
                 {
-                    remoteStream && <RTCView streamURL={remoteStream?.toURL()} style={[t.flex1]}/>
+                    remoteStream && <RTCView streamURL={remoteStream?.toURL()} style={{ flex: 1}}/>
                 }
-                <OutlineButton text={"Disconnect"} onPress={disconnect}/>
+                <Button text={"Disconnect"} onPress={disconnect}/>
             </SafeAreaView>
         </>
     );
