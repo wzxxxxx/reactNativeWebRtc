@@ -6,12 +6,13 @@ import {FlatList, StyleSheet, Text, View} from "react-native";
 import SafeAreaView from "react-native/Libraries/Components/SafeAreaView/SafeAreaView";
 import ListItem from "../components/ListItem";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import styled from "styled-components/native";
 
 const Home = ({navigation}) => {
 
     const [connectionList, setConnectionList] = useState([]);
 
-    useEffect( () => {
+    useEffect(() => {
         getHistory();
     }, []);
 
@@ -38,13 +39,16 @@ const Home = ({navigation}) => {
 
 const ConnectionList = (props) => {
     const connectionList = props.connectionList;
-    if (connectionList.length > 0) {
-        const renderItem = ({item}) => (
-            <ListItem id={item.id}/>
-        );
-        return (<FlatList data={connectionList} renderItem={renderItem}/>)
-    }
-    return <Text>{'No Histories.'}</Text>
+    const renderItem = ({item}) => (
+        <ListItem id={item.id}/>
+    );
+    return (<FlatList data={connectionList} renderItem={renderItem}
+                      ListEmptyComponent={() => (<EmptyListText>{'No Histories.'}</EmptyListText>)}/>)
 }
+
+const EmptyListText = styled.Text`
+  text-align: center;
+  margin-top: 100px;
+`
 
 export default Home;

@@ -2,7 +2,7 @@ import io from 'socket.io-client';
 import {RTCPeerConnection} from 'react-native-webrtc';
 import {DeviceEventEmitter} from "react-native";
 
-export function initConnection(signalServerUrl, targetSocketId, stunServerUrl, turnServerUrl) {
+export function initConnection(targetSocketId, signalServer, stunServer, turnServer) {
     let socketId = uuid();
     let localPeerConnection = new RTCPeerConnection({iceServers: [{urls: stunServerUrl}, {urls: turnServerUrl}]});
     const offerOptions = {

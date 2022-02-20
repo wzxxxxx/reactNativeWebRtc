@@ -14,6 +14,7 @@ import CreateConnection from "./pages/CreateConnection";
 import {NavigationContainer} from "@react-navigation/native";
 import Video from "./pages/Video";
 import Home from "./pages/Home";
+import Protocol from "./pages/Protocol";
 
 const App: () => Node = () => {
     const Stack = createNativeStackNavigator();
@@ -24,6 +25,7 @@ const App: () => Node = () => {
                 <Stack.Screen name="Home" component={Home} />
                 <Stack.Screen name="Create Connection" component={CreateConnection} />
                 <Stack.Screen name="Video" component={Video} />
+                <Stack.Screen name="Protocol" component={Protocol} />
             </Stack.Navigator>
         </NavigationContainer>
     );
