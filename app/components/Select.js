@@ -8,7 +8,8 @@ export const Select = (props) => {
                 {
                     props.required && <Asterisk> *</Asterisk>
                 }</Label>
-            <PressArea onPress={() => props.navigateTo('Protocol')}><Arrow/></PressArea>
+            <PressArea
+                onPress={() => props.navigateTo()}><SelectedText>{props.selectedText}</SelectedText><Arrow/></PressArea>
         </Container>
     )
 }
@@ -35,16 +36,23 @@ const PressArea = styled.TouchableOpacity`
   padding-right: 20px;
   height: 50px;
   display: flex;
-  align-items: flex-end;
-  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+`
+
+const SelectedText = styled.Text`
+  width: auto;
+  color: black;
+  font-size: 18px;
 `
 
 const Arrow = styled.View`
-  width: 15px;
-  height: 15px;
+  width: 12px;
+  height: 12px;
   background: white;
-  border-top-width: 2px;
-  border-right-width: 2px;
+  border-top-width: 3px;
+  border-right-width: 3px;
   border-color: gainsboro;
   transform: rotate(45deg)
 `

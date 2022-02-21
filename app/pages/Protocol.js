@@ -3,17 +3,27 @@ import {ListItemType} from "./CreateConnection";
 import React from "react";
 import styled from "styled-components/native/dist/styled-components.native.esm";
 
+const Protocols = {
+    http: 'http',
+    https: 'https'
+}
+
 const Protocol = ({navigation}) => {
 
     const props = [{
         type: ListItemType.option,
-        label: 'http'
+        label: 'http',
+        navigateTo: () => {navigateTo('Create Connection', Protocols.http)}
     }, {
         type: ListItemType.option,
-        label: 'https'
+        label: 'https',
+        navigateTo: () => {navigateTo('Create Connection', Protocols.https)}
     }]
 
-    const goBack = () => {
+    const navigateTo = (value, protocol) => {
+        navigation.navigate(value, {
+            protocol: protocol
+        })
     }
 
     return (

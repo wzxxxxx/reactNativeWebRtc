@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     SafeAreaView,
     StatusBar,
@@ -17,7 +17,10 @@ export const ListItemType = {
     option: 'option'
 }
 
-const CreateConnection = ({navigation}) => {
+const CreateConnection = ({route, navigation}) => {
+
+    const protocol = route.params?.protocol;
+
     const isDarkMode = useColorScheme() === 'dark';
     const connectProps = {text: 'Connect'};
     const [signalServer, setSignalServer] = useState({
@@ -34,6 +37,10 @@ const CreateConnection = ({navigation}) => {
         ip: '',
         port: ''
     });
+
+    useEffect(() => {
+        setSignalServerInfo('protocol', protocol);
+    }, [])
 
     const setSignalServerInfo = (key, value) => {
         setSignalServer(prev => {
@@ -60,49 +67,66 @@ const CreateConnection = ({navigation}) => {
         type: ListItemType.select,
         label: 'Protocol',
         required: true,
-        get: (value) => {setSignalServerInfo('protocol', value)},
-        navigateTo: (value) => {navigateTo(value)}
+        navigateTo: () => {
+            navigateTo('Protocol')
+        },
+        selectedText: protocol
     }, {
         type: ListItemType.input,
         label: 'IP address',
         required: true,
-        get: (value) => {setSignalServerInfo('ip', value)}
+        get: (value) => {
+            setSignalServerInfo('ip', value)
+        }
     }, {
         type: ListItemType.input,
         label: 'Port',
         required: true,
-        get: (value) => {setSignalServerInfo('port', value)}
+        get: (value) => {
+            setSignalServerInfo('port', value)
+        }
     }];
 
     const targetIdProps = [{
         type: ListItemType.input,
         label: 'Target ID',
         required: true,
-        get: (value) => {setUserId(value)}
+        get: (value) => {
+            setUserId(value)
+        }
     }];
 
     const stunServerProps = [{
         type: ListItemType.input,
         label: 'IP address',
-        get: (value) => {setStunServerInfo('ip', value)}
+        get: (value) => {
+            setStunServerInfo('ip', value)
+        }
     }, {
         type: ListItemType.input,
         label: 'Port',
-        get: (value) => {setStunServerInfo('port', value)}
+        get: (value) => {
+            setStunServerInfo('port', value)
+        }
     }];
 
     const turnServerProps = [{
         type: ListItemType.input,
         label: 'IP address',
-        get: (value) => {setTurnServerInfo('ip', value)}
+        get: (value) => {
+            setTurnServerInfo('ip', value)
+        }
     }, {
         type: ListItemType.input,
         label: 'Port',
-        get: (value) => {setTurnServerInfo('port', value)}
+        get: (value) => {
+            setTurnServerInfo('port', value)
+        }
     }];
 
     const connect = async () => {
-        if(!userId) {
+        alert(JSON.stringify(signalServer))
+        if (!userId) {
             alert('Please enter the user id');
             return;
         }
@@ -153,7 +177,7 @@ const ButtonContainer = styled.View`
 `
 
 const Spacer = styled.View`
-  margin-top: 20px;  
+  margin-top: 20px;
 `
 
 export default CreateConnection;

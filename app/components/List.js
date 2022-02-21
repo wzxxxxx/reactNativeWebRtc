@@ -12,9 +12,10 @@ export const List = (props) => {
             case ListItemType.input:
                 return (<InputWithLabel label={item.label} required={item.required} get={(value) => item.get(value)}/>);
             case ListItemType.select:
-                return (<Select label={item.label} required={item.required} navigateTo={(value) => item.navigateTo(value)}/>);
+                return (<Select label={item.label} required={item.required} navigateTo={() => item.navigateTo()}
+                                selectedText={item.selectedText}/>);
             case ListItemType.option:
-                return (<Option label={item.label} backTo={(value) => item.navigateTo(value)}/>);
+                return (<Option label={item.label} navigateTo={() => item.navigateTo()}/>);
             default:
                 break;
         }

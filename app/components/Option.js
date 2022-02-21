@@ -3,7 +3,7 @@ import styled from "styled-components/native/dist/styled-components.native.esm";
 
 export const Option = (props) => {
     return (
-        <Container onPress={() => props.backTo()}>
+        <Container onPress={() => props.navigateTo()}>
             <Label>{props.label}</Label>
         </Container>
     )

@@ -2,7 +2,7 @@ import {Button} from "../components/Button";
 import React, {useState} from "react";
 import {useEffect} from "react";
 import {Colors} from "react-native/Libraries/NewAppScreen";
-import {FlatList, StyleSheet, Text, View} from "react-native";
+import {FlatList, StyleSheet, View} from "react-native";
 import SafeAreaView from "react-native/Libraries/Components/SafeAreaView/SafeAreaView";
 import ListItem from "../components/ListItem";
 import AsyncStorage from '@react-native-async-storage/async-storage';
