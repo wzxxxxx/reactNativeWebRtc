@@ -24,6 +24,7 @@ const Label = styled.Text`
   font-size: 18px;
 `
 const Input = styled.TextInput`
+  padding-left: 50px;
   height: 50px;
   font-size: 18px;
   width: 100%;

@@ -43,8 +43,10 @@ const PressArea = styled.TouchableOpacity`
 
 const SelectedText = styled.Text`
   width: auto;
+  margin-right: 5px;
   color: black;
   font-size: 18px;
+  color: gray;
 `
 
 const Arrow = styled.View`

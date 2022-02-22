@@ -1,11 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
 import React from 'react';
 import type {Node} from 'react';
 
@@ -21,7 +13,12 @@ const App: () => Node = () => {
 
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName="Home">
+            <Stack.Navigator initialRouteName="Home" screenOptions={{
+                headerTintColor: 'limegreen',
+                headerTitleStyle: {
+                    color: 'black'
+                }
+            }}>
                 <Stack.Screen name="Home" component={Home} />
                 <Stack.Screen name="Create Connection" component={CreateConnection} />
                 <Stack.Screen name="Video" component={Video} />
