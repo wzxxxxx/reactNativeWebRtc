@@ -10,7 +10,7 @@ import styled from "styled-components/native";
 
 const Home = ({navigation}) => {
 
-    const [connectionList, setConnectionList] = useState([]);
+    const [connections, setConnections] = useState([]);
 
     useEffect(() => {
         getHistory();
@@ -19,7 +19,7 @@ const Home = ({navigation}) => {
     const getHistory = async () => {
         try {
             const historyString = await AsyncStorage.getItem('history');
-            setConnectionList(historyString ? JSON.parse(historyString) : []);
+            setConnections(historyString ? JSON.parse(historyString) : []);
         } catch (e) {
             alert(e);
         }
@@ -32,17 +32,17 @@ const Home = ({navigation}) => {
         }}>
             <View style={{padding: 20}}>
                 <Button text={'Create New Connection'} onPress={() => navigation.navigate('Create Connection')}/>
-                <ConnectionList connectionList={connectionList}/>
+                <Connections connections={connections}/>
             </View>
         </SafeAreaView>)
 }
 
-const ConnectionList = (props) => {
-    const connectionList = props.connectionList;
+const Connections = (props) => {
+    const connections = props.connections;
     const renderItem = ({item}) => (
-        <ListItem id={item.id}/>
+        <ListItem props={item}/>
     );
-    return (<FlatList data={connectionList} renderItem={renderItem}
+    return (<FlatList data={connections} renderItem={renderItem}
                       ListEmptyComponent={() => (<EmptyListText>{'No Histories.'}</EmptyListText>)}/>)
 }
 

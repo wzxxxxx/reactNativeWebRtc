@@ -8,9 +8,8 @@ import {Button} from "../components/Button";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Video = ({route}) => {
-    const {signalServerUrl, id, stunServerUrl, turnServerUrl} = route.params;
+    const {id, signalServer, stunServer, turnServer} = route.params;
     const [remoteStream, setRemoteStream] = useState(null);
-
     const handleReceiveStream = useCallback(async stream => {
         setRemoteStream(stream);
         setHistoryRecord();
@@ -20,7 +19,13 @@ const Video = ({route}) => {
         try {
             const historyString = await AsyncStorage.getItem('history');
             const history = historyString ? JSON.parse(historyString) : [];
-            history.push({id: id, time: new Date().getTime()});
+            history.push({
+                id: id,
+                signalServer: JSON.stringify(signalServer),
+                stunServer: JSON.stringify(stunServer),
+                turnServer: JSON.stringify(turnServer),
+                time: new Date().getTime()
+            });
             await AsyncStorage.setItem('history', JSON.stringify(history));
         } catch (e) {
             console.log(e);
@@ -28,7 +33,7 @@ const Video = ({route}) => {
     }
 
     useEffect(() => {
-        initConnection(signalServerUrl, id, stunServerUrl, turnServerUrl);
+        initConnection(id, signalServer, stunServer, turnServer);
     }, []);
 
     useEffect(() => {
@@ -52,7 +57,7 @@ const Video = ({route}) => {
                 ...StyleSheet.absoluteFill
             }}>
                 {
-                    remoteStream && <RTCView streamURL={remoteStream?.toURL()} style={{ flex: 1}}/>
+                    remoteStream && <RTCView streamURL={remoteStream?.toURL()} style={{flex: 1}}/>
                 }
                 <Button text={"Disconnect"} onPress={disconnect}/>
             </SafeAreaView>

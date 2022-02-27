@@ -2,12 +2,22 @@ import io from 'socket.io-client';
 import {RTCPeerConnection} from 'react-native-webrtc';
 import {DeviceEventEmitter} from "react-native";
 
-export function initConnection(targetSocketId, signalServer, stunServer, turnServer) {
+export function initConnection(targetSocketId, signalServer, stunServer?, turnServer?) {
     const signalServerUrl = `${signalServer.protocol}://${signalServer.ip}:${signalServer.port}`;
-    const stunServerUrl = `stun:${stunServer.ip}:${stunServer.port}`;
-    const turnServerUrl = `turn:${turnServer.ip}:${turnServer.port}`;
+    console.log(signalServerUrl);
+    const config = {};
+    if (stunServer.ip && stunServer.port) {
+        const stunServerUrl = `stun:${stunServer.ip}:${stunServer.port}`;
+        config.iceServers = [];
+        config.iceServers.push({urls: stunServerUrl});
+    }
+    if (turnServer.ip && turnServer.port) {
+        const turnServerUrl = `turn:${turnServer.ip}:${turnServer.port}`;
+        if (!config.iceServers) config.iceServers = [];
+        config.iceServers.push({urls: turnServerUrl});
+    }
     let socketId = uuid();
-    let localPeerConnection = new RTCPeerConnection({iceServers: [{urls: stunServerUrl}, {urls: turnServerUrl}]});
+    let localPeerConnection = new RTCPeerConnection(config);
     const offerOptions = {
         offerToReceiveAudio: 1,
         offerToReceiveVideo: 1
@@ -45,15 +55,11 @@ export function initConnection(targetSocketId, signalServer, stunServer, turnSer
             console.log('ICE state change event: ', event)
         }
     });
-    localPeerConnection.ontrack = (event) => {
-        console.log(`-------------receive remote stream`)
-        DeviceEventEmitter.emit('stream', event.streams[0])
-    };
-    // localPeerConnection.addEventListener('addstream', event => {
-    //     console.log(`----------------${JSON.stringify(event)}`)
-    //     const stream = localPeerConnection.getRemoteStreams()[0]
-    //     DeviceEventEmitter.emit('stream', stream)
-    // })
+
+    localPeerConnection.addEventListener('addstream', event => {
+        const stream = localPeerConnection.getRemoteStreams()[0]
+        DeviceEventEmitter.emit('stream', stream)
+    })
     localPeerConnection.createOffer(offerOptions).then(offer => {
         localPeerConnection.setLocalDescription(offer)
         const message = {

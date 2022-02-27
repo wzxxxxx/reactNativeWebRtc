@@ -40,7 +40,7 @@ const CreateConnection = ({route, navigation}) => {
 
     useEffect(() => {
         setSignalServerInfo('protocol', protocol);
-    }, [])
+    }, [protocol])
 
     const setSignalServerInfo = (key, value) => {
         setSignalServer(prev => {
