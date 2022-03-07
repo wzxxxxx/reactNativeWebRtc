@@ -20,7 +20,7 @@ const ListItem = (props) => {
 const Container = styled.View`
   flex-direction: row;
   width: 100%;
-  height: 50px;
+  height: 100px;
   padding-left: 20px;
   align-items: center;
   border-bottom-width: 1px;

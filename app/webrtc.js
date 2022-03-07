@@ -6,12 +6,12 @@ export function initConnection(targetSocketId, signalServer, stunServer?, turnSe
     const signalServerUrl = `${signalServer.protocol}://${signalServer.ip}:${signalServer.port}`;
     console.log(signalServerUrl);
     const config = {};
-    if (stunServer.ip && stunServer.port) {
+    if (stunServer && stunServer.ip && stunServer.port) {
         const stunServerUrl = `stun:${stunServer.ip}:${stunServer.port}`;
         config.iceServers = [];
         config.iceServers.push({urls: stunServerUrl});
     }
-    if (turnServer.ip && turnServer.port) {
+    if (turnServer && turnServer.ip && turnServer.port) {
         const turnServerUrl = `turn:${turnServer.ip}:${turnServer.port}`;
         if (!config.iceServers) config.iceServers = [];
         config.iceServers.push({urls: turnServerUrl});
