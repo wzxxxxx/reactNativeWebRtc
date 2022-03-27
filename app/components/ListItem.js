@@ -1,30 +1,49 @@
-import {Text} from "react-native";
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import React from "react";
-import styled from "styled-components/native"
 
 const ListItem = (props) => {
-    const {id, signalServer, stunServer, turnServer} = props;
-    const signalServerStr = `${signalServer?.protocol}://${signalServer?.ip}:${signalServer?.port}`;
-    const stunServerStr = `stun:${stunServer?.ip}:${stunServer?.port}`;
-    const turnServerStr = `turn:${turnServer?.ip}:${turnServer?.port}`;
+    const {id, signalServer, stunServer, turnServer} = props.item;
+    const onPressListItem = props.onPress;
+    // console.log(JSON.stringify(props));
+    const signalServerStr = `${JSON.parse(signalServer)?.protocol}://${JSON.parse(signalServer)?.ip}:${JSON.parse(signalServer)?.port}`;
+    const stunServerStr = `stun:${JSON.parse(stunServer)?.ip}:${JSON.parse(stunServer)?.port}`;
+    let turnServerStr;
+    if (turnServer) {
+        turnServerStr = `turn:${JSON.parse(turnServer)?.ip}:${JSON.parse(turnServer)?.port}`;
+    }
+
+    // const onPressListItem = () => {
+    //     navigation.navigate('Video', {
+    //         id: id,
+    //         signalServer: signalServer,
+    //         stunServer: stunServer,
+    //         turnServerUrl: turnServer
+    //     });
+    // }
+
     return(
-        <Container>
-            <Text>{id}</Text>
-            <Text>Signal Server: {signalServerStr}</Text>
-            <Text>Stun Server: {stunServerStr}</Text>
-            <Text>Turn Server: {turnServerStr}</Text>
-        </Container>
+        <TouchableOpacity style={styles.container} onPress={() => onPressListItem(props.item)}>
+            <Text style={styles.text}>{id}</Text>
+            <Text style={styles.text}>Signal Server: {signalServerStr}</Text>
+            <Text style={styles.text}>Stun Server: {stunServerStr}</Text>
+            <Text style={styles.text}>Turn Server: {turnServerStr}</Text>
+        </TouchableOpacity>
     )
 }
 
-const Container = styled.View`
-  flex-direction: row;
-  width: 100%;
-  height: 100px;
-  padding-left: 20px;
-  align-items: center;
-  border-bottom-width: 1px;
-  border-color: #eeeeee;
-`
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'column',
+    width: '100%',
+    height: 100,
+    paddingLeft: 20,
+    alignItems: 'center',
+    borderBottomWidth: 1,
+    borderColor: '#eeeeee'
+  },
+  text: {
+    width: '100%'
+  }
+})
 
 export default ListItem;

@@ -1,7 +1,7 @@
 import {List} from "../components/List";
-import {ListItemType} from "./CreateConnection";
+import {ListItemType} from "../components/List";
 import React from "react";
-import styled from "styled-components/native/dist/styled-components.native.esm";
+import { View } from 'react-native';
 
 const Protocols = {
     http: 'http',
@@ -38,14 +38,10 @@ const Protocol = ({navigation}) => {
 
     return (
         <>
-            <Spacer/>
+            <View style={{ marginTop: 20}}/>
             <List props={props}/>
         </>
     );
 };
-
-const Spacer = styled.View`
-  margin-top: 20px;
-`
 
 export default Protocol;

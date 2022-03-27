@@ -1,26 +1,28 @@
 import React from "react";
-import styled from "styled-components/native"
+import {StyleSheet, Text, TouchableOpacity} from "react-native";
+
 
 export const Button = (props) => {
     const {text, onPress} = props;
     return (
-        <Container onPress={() => onPress()}>
-            <ButtonText>{text}</ButtonText>
-        </Container>
+        <TouchableOpacity style={styles.container} onPress={() => onPress()}>
+            <Text style={styles.text}>{text}</Text>
+        </TouchableOpacity>
     )
 }
 
-const Container = styled.TouchableOpacity`
-  width: 100%;
-  background-color: limegreen;
-  height: 40px;
-  border-radius: 4px;
-  align-items: center;
-  justify-content: center;
-`
-
-const ButtonText = styled.Text`
-  color: white;
-  font-size: 16px;
-`
+const styles = StyleSheet.create({
+    container: {
+        width: '100%',
+        height: 40,
+        backgroundColor: 'limegreen',
+        alignItems: "center",
+        justifyContent: "center",
+        borderRadius: 4
+    },
+    text: {
+        color: 'white',
+        fontSize: 16
+    }
+})
 

@@ -1,21 +1,23 @@
 import React from "react";
-import styled from "styled-components/native/dist/styled-components.native.esm";
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 
 export const Option = (props) => {
     return (
-        <Container onPress={() => props.navigateTo()}>
-            <Label>{props.label}</Label>
-        </Container>
+        <TouchableOpacity style={styles.container} onPress={() => props.navigateTo()}>
+            <Text style={styles.label}>{props.label}</Text>
+        </TouchableOpacity>
     )
 }
 
-const Container = styled.TouchableOpacity`
-  flex-direction: row;
-  height: 50px;
-  align-items: center;
-`
-const Label = styled.Text`
-  width: 100px;
-  margin-left: 20px;
-  font-size: 18px;
-`
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    height: 50,
+    alignItems: 'center'
+  },
+  label: {
+    width: 100,
+    marginLeft: 20,
+    fontSize: 18
+  }
+})

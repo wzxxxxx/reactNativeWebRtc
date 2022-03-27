@@ -1,60 +1,55 @@
-import styled from "styled-components/native/dist/styled-components.native.esm";
 import React from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 export const Select = (props) => {
-    return (
-        <Container>
-            <Label>{props.label}
-                {
-                    props.required && <Asterisk> *</Asterisk>
-                }</Label>
-            <PressArea
-                onPress={() => props.navigateTo()}><SelectedText>{props.selectedText}</SelectedText><Arrow/></PressArea>
-        </Container>
-    )
-}
+  return (
+    <View style={styles.container}>
+      <Text style={styles.label}>{props.label}
+        {
+          props.required && <Text style={{ color: 'red' }}> *</Text>
+        }</Text>
+      <TouchableOpacity style={styles.touchArea}
+                        onPress={() => props.navigateTo()}><Text
+        style={styles.selected}>{props.selectedText}</Text></TouchableOpacity>
+    </View>
+  );
+};
 
-const Container = styled.View`
-  flex-direction: row;
-  height: 50px;
-  align-items: center;
-`
-const Label = styled.Text`
-  width: 100px;
-  margin-left: 20px;
-  font-size: 18px;
-`
+const styles = StyleSheet.create({
+  container: {
+    width: '100%',
+    height: 50,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  label: {
+    width: 100,
+    marginLeft: 20,
+    fontSize: 18,
+  },
+  touchArea: {
+    width: 'auto',
+    flex: 1,
+    paddingRight: 20,
+    height: 50,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+  },
+  selected: {
+    width: 'auto',
+    marginRight: 5,
+    color: 'gray',
+    fontSize: 18,
+  },
+  arrow: {
+    width: 12,
+    height: 12,
+    backgroundColor: 'white',
+    borderTopWidth: 3,
+    borderRightWidth: 3,
+    borderColor: 'gainsboro',
+    transform: 'rotate(45deg)'
+  }
+});
 
-const Asterisk = styled.Text`
-  color: red;
-  align-self: flex-end;
-`
-
-const PressArea = styled.TouchableOpacity`
-  width: auto;
-  flex: 1;
-  padding-right: 20px;
-  height: 50px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-end;
-`
-
-const SelectedText = styled.Text`
-  width: auto;
-  margin-right: 5px;
-  color: black;
-  font-size: 18px;
-  color: gray;
-`
-
-const Arrow = styled.View`
-  width: 12px;
-  height: 12px;
-  background: white;
-  border-top-width: 3px;
-  border-right-width: 3px;
-  border-color: gainsboro;
-  transform: rotate(45deg)
-`

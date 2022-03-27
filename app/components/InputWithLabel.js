@@ -1,39 +1,37 @@
-import React from "react";
-import styled from "styled-components/native"
+import React from 'react';
+import { StyleSheet, Text, TextInput, View } from 'react-native';
 
 export const InputWithLabel = (props) => {
-    return (
-        <Container>
-            <Label>{props.label}
-                {
-                    props.required && <Asterisk> *</Asterisk>
-                }</Label>
-            <Input onChangeText={text => props.get(text)} autoCorrect={false} autoCapitalize={"none"}/>
-        </Container>
-    )
-}
+  return (
+    <View style={styles.container}>
+      <Text style={styles.label}>{props.label}
+        {
+          props.required && <Text style={{ color: 'red' }}> *</Text>
+        }</Text>
+      <TextInput style={styles.input} onChangeText={text => props.get(text)} autoCorrect={false} autoCapitalize={'none'} />
+    </View>
+  );
+};
 
-const Container = styled.View`
-  flex-direction: row;
-  height: 50px;
-  align-items: center;
-`
-const Label = styled.Text`
-  width: 100px;
-  margin-left: 20px;
-  font-size: 18px;
-`
-const Input = styled.TextInput`
-  padding-left: 50px;
-  height: 50px;
-  font-size: 18px;
-  width: 100%;
-  color: black;
-`
-const Asterisk = styled.Text`
-  color: red;
-  align-self: flex-end;
-`
-
+const styles = StyleSheet.create({
+  container: {
+    width: '100%',
+    height: 50,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  label: {
+    width: 100,
+    marginLeft: 20,
+    fontSize: 18,
+  },
+  input: {
+    width: '100%',
+    height: 50,
+    paddingLeft: 50,
+    fontSize: 18,
+    color: 'black'
+  }
+});
 
 

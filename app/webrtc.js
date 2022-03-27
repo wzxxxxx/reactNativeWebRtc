@@ -4,7 +4,7 @@ import {DeviceEventEmitter} from "react-native";
 
 export function initConnection(targetSocketId, signalServer, stunServer?, turnServer?) {
     const signalServerUrl = `${signalServer.protocol}://${signalServer.ip}:${signalServer.port}`;
-    console.log(signalServerUrl);
+    alert(JSON.stringify(turnServer));
     const config = {};
     if (stunServer && stunServer.ip && stunServer.port) {
         const stunServerUrl = `stun:${stunServer.ip}:${stunServer.port}`;
@@ -13,8 +13,14 @@ export function initConnection(targetSocketId, signalServer, stunServer?, turnSe
     }
     if (turnServer && turnServer.ip && turnServer.port) {
         const turnServerUrl = `turn:${turnServer.ip}:${turnServer.port}`;
-        if (!config.iceServers) config.iceServers = [];
-        config.iceServers.push({urls: turnServerUrl});
+        // if (!config.iceServers) config.iceServers = [];
+        const serverInfo = {urls: turnServerUrl};
+        // config.iceServers.push({urls: turnServerUrl});
+        if (turnServer.username && turnServer.password) {
+            serverInfo.username = turnServer.username;
+            serverInfo.credential = turnServer.password;
+        }
+        config.iceServers.push(serverInfo);
     }
     let socketId = uuid();
     let localPeerConnection = new RTCPeerConnection(config);

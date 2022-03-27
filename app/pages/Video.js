@@ -19,7 +19,7 @@ const Video = ({route}) => {
         try {
             const historyString = await AsyncStorage.getItem('history');
             const history = historyString ? JSON.parse(historyString) : [];
-            history.push({
+            history.unshift({
                 id: id,
                 signalServer: JSON.stringify(signalServer),
                 stunServer: JSON.stringify(stunServer),
