@@ -1,14 +1,19 @@
 import React from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 
-export const InputWithLabel = (props) => {
+export const Input = (props) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>{props.label}
-        {
-          props.required && <Text style={{ color: 'red' }}> *</Text>
-        }</Text>
-      <TextInput style={styles.input} onChangeText={text => props.get(text)} autoCorrect={false} autoCapitalize={'none'} />
+      <Text style={styles.label}>
+        {props.label}
+        {props.required && <Text style={{ color: 'red' }}> *</Text>}
+      </Text>
+      <TextInput
+        style={styles.input}
+        onChangeText={(text) => props.get(text)}
+        autoCorrect={false}
+        autoCapitalize={'none'}
+      />
     </View>
   );
 };
@@ -30,8 +35,6 @@ const styles = StyleSheet.create({
     height: 50,
     paddingLeft: 50,
     fontSize: 18,
-    color: 'black'
-  }
+    color: 'black',
+  },
 });
-
-

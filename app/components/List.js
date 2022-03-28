@@ -1,5 +1,5 @@
 import { FlatList, StyleSheet, View } from 'react-native';
-import { InputWithLabel } from './InputWithLabel';
+import { Input } from './Input';
 import React from 'react';
 import { Select } from './Select';
 import { Option } from './Option';
@@ -14,12 +14,24 @@ export const List = (props) => {
   const renderItem = ({ item }) => {
     switch (item.type) {
       case ListItemType.input:
-        return (<InputWithLabel label={item.label} required={item.required} get={(value) => item.get(value)} />);
+        return (
+          <Input
+            label={item.label}
+            required={item.required}
+            get={(value) => item.get(value)}
+          />
+        );
       case ListItemType.select:
-        return (<Select label={item.label} required={item.required} navigateTo={() => item.navigateTo()}
-                        selectedText={item.selectedText} />);
+        return (
+          <Select
+            label={item.label}
+            required={item.required}
+            navigateTo={() => item.navigateTo()}
+            selectedText={item.selectedText}
+          />
+        );
       case ListItemType.option:
-        return (<Option label={item.label} navigateTo={() => item.navigateTo()} />);
+        return <Option label={item.label} navigateTo={() => item.navigateTo()} />;
       default:
         break;
     }
@@ -27,9 +39,11 @@ export const List = (props) => {
 
   return (
     <View style={styles.container}>
-      <FlatList data={props.props} renderItem={renderItem}
-                ItemSeparatorComponent={() => (<View style={styles.separator} />)}>
-      </FlatList>
+      <FlatList
+        data={props.props}
+        renderItem={renderItem}
+        ItemSeparatorComponent={() => <View style={styles.separator} />}
+      />
     </View>
   );
 };
@@ -45,7 +59,6 @@ const styles = StyleSheet.create({
   separator: {
     width: '100%',
     height: 1,
-    backgroundColor: 'gainsboro'
+    backgroundColor: 'gainsboro',
   },
 });
-

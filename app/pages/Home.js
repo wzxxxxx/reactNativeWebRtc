@@ -8,7 +8,6 @@ import ListItem from '../components/ListItem';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Home = ({ navigation }) => {
-
   const [connections, setConnections] = useState([]);
 
   useEffect(() => {
@@ -35,36 +34,38 @@ const Home = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={{
-      backgroundColor: Colors.white,
-      ...StyleSheet.absoluteFill,
-    }}>
+    <SafeAreaView
+      style={{
+        backgroundColor: Colors.white,
+        ...StyleSheet.absoluteFill,
+      }}
+    >
       <View style={{ padding: 20 }}>
-        <Button text={'Create New Connection'} onPress={() => navigation.navigate('Create Connection')} />
+        <Button
+          text={'Create New Connection'}
+          onPress={() => navigation.navigate('Create Connection')}
+        />
         <Connections connections={connections} onPress={(item) => openVideoPage(item)} />
       </View>
-    </SafeAreaView>);
+    </SafeAreaView>
+  );
 };
 
 const Connections = (props) => {
   const connections = props.connections;
   const onPressListItem = props.onPress;
 
-  // const onPressListItem = async () => {
-  //     navigation.navigate('Video', {
-  //         id: userId,
-  //         signalServer: signalServer,
-  //         stunServer: stunServer,
-  //         turnServerUrl: turnServer
-  //     });
-  // }
-
-  // alert(JSON.stringify(connections));
   const renderItem = ({ item }) => (
     <ListItem item={item} onPress={(item) => onPressListItem(item)} />
   );
-  return (<FlatList data={connections} renderItem={renderItem} keyExtractor={item => item.time}
-                    ListEmptyComponent={() => (<Text style={{ marginTop: 100, alignItems: 'center' }} />)} />);
+  return (
+    <FlatList
+      data={connections}
+      renderItem={renderItem}
+      keyExtractor={(item) => item.time}
+      ListEmptyComponent={() => <Text style={{ marginTop: 100, alignItems: 'center' }} />}
+    />
+  );
 };
 
 export default Home;
