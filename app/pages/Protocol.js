@@ -1,5 +1,5 @@
-import { List } from '../components/List';
-import { ListItemType } from '../components/List';
+import { List } from '../components/List/List';
+import { ListItemType } from '../components/List/List';
 import React from 'react';
 import { View } from 'react-native';
 

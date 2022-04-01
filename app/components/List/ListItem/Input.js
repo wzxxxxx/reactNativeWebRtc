@@ -10,7 +10,7 @@ export const Input = (props) => {
       </Text>
       <TextInput
         style={styles.input}
-        onChangeText={(text) => props.get(text)}
+        onChangeText={(text) => props.onChange(text)}
         autoCorrect={false}
         autoCapitalize={'none'}
       />

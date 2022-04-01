@@ -1,9 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView, StatusBar, StyleSheet, Text, useColorScheme, View } from 'react-native';
+import {
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  useColorScheme,
+  View,
+} from 'react-native';
 
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { Button } from '../components/Button';
-import { List, ListItemType } from '../components/List';
+import { List, ListItemType } from '../components/List/List';
+import {Select} from "../components/List/ListItem/Select";
 
 export const ConnectionParamType = {
   signal: 'signal',
@@ -13,6 +22,8 @@ export const ConnectionParamType = {
 
 const CreateConnection = ({ route, navigation }) => {
   const protocol = route.params?.protocol;
+  const stunServerInfo = route.params?.stunServer;
+  alert(JSON.stringify(stunServerInfo));
   const isDarkMode = useColorScheme() === 'dark';
   const connectProps = { text: 'Connect' };
   const [signalServer, setSignalServer] = useState({
@@ -40,33 +51,33 @@ const CreateConnection = ({ route, navigation }) => {
     let setParamFunction;
     switch (server) {
       case ConnectionParamType.signal:
-        setParamFunction = setSignalServer;
-        // setSignalServer((prev) => {
-        //   prev[key] = value;
-        //   return prev;
-        // });
+        // setParamFunction = setSignalServer;
+        setSignalServer((prev) => {
+          prev[key] = value;
+          return prev;
+        });
         break;
       case ConnectionParamType.stun:
-        setParamFunction = setStunServer;
-        // setStunServer((prev) => {
-        //   prev[key] = value;
-        //   return prev;
-        // });
+        // setParamFunction = setStunServer;
+        setStunServer((prev) => {
+          prev[key] = value;
+          return prev;
+        });
         break;
       case ConnectionParamType.turn:
-        setParamFunction = setTurnServer;
-        // setTurnServer((prev) => {
-        //   prev[key] = value;
-        //   return prev;
-        // });
+        // setParamFunction = setTurnServer;
+        setTurnServer((prev) => {
+          prev[key] = value;
+          return prev;
+        });
         break;
       default:
         break;
     }
-    setParamFunction((prev) => {
-      prev[key] = value;
-      return prev;
-    });
+    // setParamFunction((prev) => {
+    //   prev[key] = value;
+    //   return prev;
+    // });
   };
 
   const signalServerProps = [
@@ -83,7 +94,7 @@ const CreateConnection = ({ route, navigation }) => {
       type: ListItemType.input,
       label: 'IP address',
       required: true,
-      get: (value) => {
+      onChange: (value) => {
         setConnectionParam(ConnectionParamType.signal, 'ip', value);
       },
     },
@@ -91,7 +102,7 @@ const CreateConnection = ({ route, navigation }) => {
       type: ListItemType.input,
       label: 'Port',
       required: true,
-      get: (value) => {
+      onChange: (value) => {
         setConnectionParam(ConnectionParamType.signal, 'port', value);
       },
     },
@@ -102,7 +113,7 @@ const CreateConnection = ({ route, navigation }) => {
       type: ListItemType.input,
       label: 'Target ID',
       required: true,
-      get: (value) => {
+      onChange: (value) => {
         setUserId(value);
       },
     },
@@ -110,49 +121,62 @@ const CreateConnection = ({ route, navigation }) => {
 
   const stunServerProps = [
     {
-      type: ListItemType.input,
-      label: 'IP address',
-      get: (value) => {
-        setConnectionParam(ConnectionParamType.stun, 'ip', value);
-      },
-    },
-    {
-      type: ListItemType.input,
-      label: 'Port',
-      get: (value) => {
-        setConnectionParam(ConnectionParamType.stun, 'port', value);
-      },
-    },
+      type: ListItemType.select,
+      label: 'Stun Server',
+      navigateTo: () => {
+        navigateTo('Stun Server');
+      }
+    }
+    // {
+    //   type: ListItemType.input,
+    //   label: 'IP address',
+    //   get: (value) => {
+    //     setConnectionParam(ConnectionParamType.stun, 'ip', value);
+    //   },
+    // },
+    // {
+    //   type: ListItemType.input,
+    //   label: 'Port',
+    //   get: (value) => {
+    //     setConnectionParam(ConnectionParamType.stun, 'port', value);
+    //   },
+    // },
   ];
 
   const turnServerProps = [
     {
-      type: ListItemType.input,
-      label: 'IP address',
-      get: (value) => {
-        setConnectionParam(ConnectionParamType.turn, 'ip', value);
+      type: ListItemType.select,
+      label: 'Turn Server',
+      navigateTo: () => {
+        navigateTo('Turn Server');
       },
-    },
-    {
-      type: ListItemType.input,
-      label: 'Port',
-      get: (value) => {
-        setConnectionParam(ConnectionParamType.turn, 'port', value);
-      },
-    },
-    {
-      type: ListItemType.input,
-      label: 'UserName',
-      get: (value) => {
-        setConnectionParam(ConnectionParamType.turn, 'username', value);
-      },
-    },
-    {
-      type: ListItemType.input,
-      label: 'Password',
-      get: (value) => {
-        setConnectionParam(ConnectionParamType.turn, 'password', value);
-      },
+    // {
+    //   type: ListItemType.input,
+    //   label: 'IP address',
+    //   get: (value) => {
+    //     setConnectionParam(ConnectionParamType.turn, 'ip', value);
+    //   },
+    // },
+    // {
+    //   type: ListItemType.input,
+    //   label: 'Port',
+    //   get: (value) => {
+    //     setConnectionParam(ConnectionParamType.turn, 'port', value);
+    //   },
+    // },
+    // {
+    //   type: ListItemType.input,
+    //   label: 'UserName',
+    //   get: (value) => {
+    //     setConnectionParam(ConnectionParamType.turn, 'username', value);
+    //   },
+    // },
+    // {
+    //   type: ListItemType.input,
+    //   label: 'Password',
+    //   get: (value) => {
+    //     setConnectionParam(ConnectionParamType.turn, 'password', value);
+    //   },
     },
   ];
 
@@ -174,27 +198,29 @@ const CreateConnection = ({ route, navigation }) => {
   };
 
   return (
-    <>
-      <SafeAreaView
-        style={{
-          backgroundColor: Colors.gray,
-          ...StyleSheet.absoluteFill,
-        }}
-      >
-        <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-        <View style={{ marginTop: 20 }} />
-        <List props={targetIdProps} />
-        <Text style={styles.title}>Signal Server</Text>
-        <List props={signalServerProps} />
-        <Text style={styles.title}>Stun Server</Text>
-        <List props={stunServerProps} />
-        <Text style={styles.title}>Turn Server</Text>
-        <List props={turnServerProps} />
-        <View style={{ marginTop: 40, paddingLeft: 20, paddingRight: 20 }}>
-          <Button text={connectProps.text} onPress={connect} />
-        </View>
-      </SafeAreaView>
-    </>
+    <SafeAreaView
+      style={{
+        backgroundColor: Colors.gray,
+        ...StyleSheet.absoluteFill,
+        flex: 1,
+      }}
+    >
+      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+      <View style={{ marginTop: 20 }} />
+      <List props={targetIdProps} />
+      <Text style={styles.title}>Signal Server</Text>
+      <List props={signalServerProps} />
+      {/*<Text style={styles.title}>Stun Server</Text>*/}
+      {/*<Select label={'Stun Server'}></Select>*/}
+      <View style={{ marginTop: 20 }} />
+      <List props={stunServerProps}/>
+      {/*<Text style={styles.title}>Turn Server</Text>*/}
+      <View style={{ marginTop: 20 }} />
+      <List props={turnServerProps} />
+      <View style={{ marginTop: 40, paddingLeft: 20, paddingRight: 20 }}>
+        <Button text={connectProps.text} onPress={connect} />
+      </View>
+    </SafeAreaView>
   );
 };
 

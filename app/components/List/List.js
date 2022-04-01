@@ -1,8 +1,8 @@
 import { FlatList, StyleSheet, View } from 'react-native';
-import { Input } from './Input';
+import { Input } from './ListItem/Input';
 import React from 'react';
-import { Select } from './Select';
-import { Option } from './Option';
+import { Select } from './ListItem/Select';
+import { Option } from './ListItem/Option';
 
 export const ListItemType = {
   select: 'select',
@@ -18,7 +18,7 @@ export const List = (props) => {
           <Input
             label={item.label}
             required={item.required}
-            get={(value) => item.get(value)}
+            onChange={(value) => item.onChange(value)}
           />
         );
       case ListItemType.select:
@@ -42,6 +42,7 @@ export const List = (props) => {
       <FlatList
         data={props.props}
         renderItem={renderItem}
+        alwaysBounceVertical={false}
         ItemSeparatorComponent={() => <View style={styles.separator} />}
       />
     </View>
