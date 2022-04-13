@@ -24,12 +24,11 @@ const Home = ({ navigation }) => {
   };
 
   const openVideoPage = (item) => {
-    alert(JSON.stringify(item.signalServer));
     navigation.navigate('Video', {
       id: item.id,
       signalServer: JSON.parse(item.signalServer),
       stunServer: JSON.parse(item.stunServer),
-      turnServerUrl: item?.turnServer && JSON.parse(item?.turnServer),
+      turnServer: JSON.parse(item?.turnServer),
     });
   };
 
@@ -40,13 +39,11 @@ const Home = ({ navigation }) => {
         ...StyleSheet.absoluteFill,
       }}
     >
-      <View style={{ padding: 20 }}>
-        <Button
-          text={'Create New Connection'}
-          onPress={() => navigation.navigate('Create Connection')}
-        />
-        <Connections connections={connections} onPress={(item) => openVideoPage(item)} />
-      </View>
+      <Button
+        text={'Create New Connection'}
+        onPress={() => navigation.navigate('Create Connection')}
+      />
+      <Connections connections={connections} onPress={(item) => openVideoPage(item)} />
     </SafeAreaView>
   );
 };

@@ -13,6 +13,7 @@ export const Input = (props) => {
         onChangeText={(text) => props.onChange(text)}
         autoCorrect={false}
         autoCapitalize={'none'}
+        keyboardType={props.keyboardType || 'default'}
       />
     </View>
   );

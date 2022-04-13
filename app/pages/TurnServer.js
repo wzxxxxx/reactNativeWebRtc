@@ -1,43 +1,63 @@
 import { View } from 'react-native';
 import { List, ListItemType } from '../components/List/List';
-import React from 'react';
+import React, { useState } from 'react';
+import { Button } from '../components/Button';
 
 const TurnServer = ({ navigation }) => {
+  const [ip, setIp] = useState('');
+  const [port, setPort] = useState('');
+  const [userName, setUserName] = useState('');
+  const [password, setPassword] = useState('');
+
   const props = [
     {
       type: ListItemType.input,
       label: 'IP address',
       onChange: (value) => {
-        setConnectionParam(ConnectionParamType.turn, 'ip', value);
+        setIp(value);
       },
+      keyboardType: 'numeric'
     },
     {
       type: ListItemType.input,
       label: 'Port',
       onChange: (value) => {
-        setConnectionParam(ConnectionParamType.turn, 'port', value);
+        setPort(value);
       },
+      keyboardType: 'numeric'
     },
     {
       type: ListItemType.input,
       label: 'UserName',
       onChange: (value) => {
-        setConnectionParam(ConnectionParamType.turn, 'username', value);
+        setUserName(value);
       },
     },
     {
       type: ListItemType.input,
       label: 'Password',
       onChange: (value) => {
-        setConnectionParam(ConnectionParamType.turn, 'password', value);
+        setPassword(value);
       },
     },
   ];
+
+  const save = () => {
+    navigation.navigate('Create Connection', {
+      turnServer: {
+        ip: ip,
+        port: port,
+        username: userName,
+        password: password,
+      },
+    });
+  };
 
   return (
     <>
       <View style={{ marginTop: 20 }} />
       <List props={props} />
+      <Button text={'Save'} onPress={save} />
     </>
   );
 };

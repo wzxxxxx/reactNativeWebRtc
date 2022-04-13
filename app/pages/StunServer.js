@@ -1,6 +1,7 @@
-import {Button, Text, View} from 'react-native';
+import { View } from 'react-native';
 import { List, ListItemType } from '../components/List/List';
 import React, { useState } from 'react';
+import { Button } from '../components/Button';
 
 const StunServer = ({ navigation }) => {
   const [ip, setIp] = useState('');
@@ -11,11 +12,9 @@ const StunServer = ({ navigation }) => {
       type: ListItemType.input,
       label: 'IP address',
       onChange: (value) => {
-        console.log(value);
-        // alert(value);
         setIp(value);
-        console.log(ip);
       },
+      keyboardType: 'numeric'
     },
     {
       type: ListItemType.input,
@@ -23,30 +22,24 @@ const StunServer = ({ navigation }) => {
       onChange: (value) => {
         setPort(value);
       },
+      keyboardType: 'numeric'
     },
   ];
 
   const save = () => {
-    console.log(ip + '---------');
-    // navigation.navigate('Create Connection', {
-    //   stunServer: {
-    //     ip: ip,
-    //     port: port,
-    //   },
-    // });
-  };
-
-  React.useLayoutEffect(() => {
-    navigation.setOptions({
-      headerRight: () => <Button onPress={save} title="Save" color="limegreen" />,
+    navigation.navigate('Create Connection', {
+      stunServer: {
+        ip: ip,
+        port: port,
+      },
     });
-  }, [navigation]);
+  };
 
   return (
     <>
       <View style={{ marginTop: 20 }} />
       <List props={props} />
-      <Text>{ip}</Text>
+      <Button text={'Save'} onPress={save} />
     </>
   );
 };

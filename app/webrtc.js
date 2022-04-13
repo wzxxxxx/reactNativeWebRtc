@@ -4,7 +4,6 @@ import { DeviceEventEmitter } from 'react-native';
 
 export function initConnection(targetSocketId, signalServer, stunServer?, turnServer?) {
   const signalServerUrl = `${signalServer.protocol}://${signalServer.ip}:${signalServer.port}`;
-  alert(JSON.stringify(turnServer));
   const config = {};
   if (stunServer && stunServer.ip && stunServer.port) {
     const stunServerUrl = `stun:${stunServer.ip}:${stunServer.port}`;
