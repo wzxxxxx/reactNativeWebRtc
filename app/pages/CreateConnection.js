@@ -1,16 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import {
-  SafeAreaView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import { SafeAreaView, StatusBar, StyleSheet, Text, useColorScheme } from 'react-native';
 
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { Button } from '../components/Button';
 import { List, ListItemType } from '../components/List/List';
+import { Screens } from '../Screens';
 
 const ConnectionParamType = {
   signal: 'signal',
@@ -65,7 +59,6 @@ const CreateConnection = ({ route, navigation }) => {
 
   useEffect(() => {
     if (turnServerInfo) {
-      alert(JSON.stringify(turnServerInfo));
       let u = `${turnServerInfo.ip}:${turnServerInfo.port}`;
       if (turnServerInfo.username && turnServerInfo.password) {
         u = `${u}[${turnServerInfo.username}:${turnServerInfo.password}]`;
@@ -103,9 +96,9 @@ const CreateConnection = ({ route, navigation }) => {
       label: 'Protocol',
       required: true,
       navigateTo: () => {
-        navigateTo('Protocol');
+        navigateTo(Screens.protocol);
       },
-      selectedText: protocolText,
+      selectedOption: protocolText,
     },
     {
       type: ListItemType.input,
@@ -114,7 +107,7 @@ const CreateConnection = ({ route, navigation }) => {
       onChange: (value) => {
         setConnectionParameter(ConnectionParamType.signal, 'ip', value);
       },
-      keyboardType: 'numeric'
+      keyboardType: 'numeric',
     },
     {
       type: ListItemType.input,
@@ -123,7 +116,7 @@ const CreateConnection = ({ route, navigation }) => {
       onChange: (value) => {
         setConnectionParameter(ConnectionParamType.signal, 'port', value);
       },
-      keyboardType: 'numeric'
+      keyboardType: 'numeric',
     },
   ];
 
@@ -143,9 +136,9 @@ const CreateConnection = ({ route, navigation }) => {
       type: ListItemType.select,
       label: 'Stun Server',
       navigateTo: () => {
-        navigateTo('Stun Server');
+        navigateTo(Screens.stunServer);
       },
-      selectedText: stunServerText,
+      selectedOption: stunServerText,
     },
   ];
 
@@ -154,9 +147,9 @@ const CreateConnection = ({ route, navigation }) => {
       type: ListItemType.select,
       label: 'Turn Server',
       navigateTo: () => {
-        navigateTo('Turn Server');
+        navigateTo(Screens.turnServer);
       },
-      selectedText: turnServerText,
+      selectedOption: turnServerText,
     },
   ];
 
@@ -165,7 +158,7 @@ const CreateConnection = ({ route, navigation }) => {
       alert('Please enter the user id');
       return;
     }
-    navigation.navigate('Video', {
+    navigation.navigate(Screens.video, {
       id: userId,
       signalServer: signalServer,
       stunServer: stunServer,
@@ -186,14 +179,11 @@ const CreateConnection = ({ route, navigation }) => {
       }}
     >
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <View style={{ marginTop: 20 }} />
-      <List props={targetIdProps} />
+      <List listProps={targetIdProps} defaultMarginTop />
       <Text style={styles.title}>Signal Server</Text>
-      <List props={signalServerProps} />
-      <View style={{ marginTop: 20 }} />
-      <List props={stunServerProps} />
-      <View style={{ marginTop: 20 }} />
-      <List props={turnServerProps} />
+      <List listProps={signalServerProps} />
+      <List listProps={stunServerProps} defaultMarginTop />
+      <List listProps={turnServerProps} defaultMarginTop />
       <Button text={'Connect'} onPress={connect} />
     </SafeAreaView>
   );

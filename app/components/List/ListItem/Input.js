@@ -1,19 +1,19 @@
 import React from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 
-export const Input = (props) => {
+export const Input = ({label, required, onChange, keyboardType }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.label}>
-        {props.label}
-        {props.required && <Text style={{ color: 'red' }}> *</Text>}
+        {label}
+        {required && <Text style={{ color: 'red' }}> *</Text>}
       </Text>
       <TextInput
         style={styles.input}
-        onChangeText={(text) => props.onChange(text)}
+        onChangeText={(text) => onChange(text)}
         autoCorrect={false}
         autoCapitalize={'none'}
-        keyboardType={props.keyboardType || 'default'}
+        keyboardType={keyboardType || 'default'}
       />
     </View>
   );

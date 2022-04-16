@@ -1,7 +1,7 @@
 import { List } from '../components/List/List';
 import { ListItemType } from '../components/List/List';
 import React from 'react';
-import { View } from 'react-native';
+import { Screens } from '../Screens';
 
 const Protocols = {
   http: 'http',
@@ -16,44 +16,39 @@ const Protocol = ({ navigation }) => {
       type: ListItemType.option,
       label: 'http',
       navigateTo: () => {
-        navigateTo('Create Connection', Protocols.http);
+        navigateTo(Screens.createConnection, Protocols.http);
       },
     },
     {
       type: ListItemType.option,
       label: 'https',
       navigateTo: () => {
-        navigateTo('Create Connection', Protocols.https);
+        navigateTo(Screens.createConnection, Protocols.https);
       },
     },
     {
       type: ListItemType.option,
       label: 'ws',
       navigateTo: () => {
-        navigateTo('Create Connection', Protocols.ws);
+        navigateTo(Screens.createConnection, Protocols.ws);
       },
     },
     {
       type: ListItemType.option,
       label: 'wss',
       navigateTo: () => {
-        navigateTo('Create Connection', Protocols.wss);
+        navigateTo(Screens.createConnection, Protocols.wss);
       },
     },
   ];
 
-  const navigateTo = (value, protocol) => {
-    navigation.navigate(value, {
+  const navigateTo = (screen, protocol) => {
+    navigation.navigate(screen, {
       protocol: protocol,
     });
   };
 
-  return (
-    <>
-      <View style={{ marginTop: 20 }} />
-      <List props={props} />
-    </>
-  );
+  return <List listProps={props} defaultMarginTop />;
 };
 
 export default Protocol;

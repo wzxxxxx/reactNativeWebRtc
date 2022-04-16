@@ -2,10 +2,11 @@ import { Button } from '../components/Button';
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { FlatList, StatusBar, StyleSheet, Text, View } from 'react-native';
 import SafeAreaView from 'react-native/Libraries/Components/SafeAreaView/SafeAreaView';
 import ListItem from '../components/ListItem';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Screens } from '../Screens';
 
 const Home = ({ navigation }) => {
   const [connections, setConnections] = useState([]);
@@ -24,7 +25,7 @@ const Home = ({ navigation }) => {
   };
 
   const openVideoPage = (item) => {
-    navigation.navigate('Video', {
+    navigation.navigate(Screens.video, {
       id: item.id,
       signalServer: JSON.parse(item.signalServer),
       stunServer: JSON.parse(item.stunServer),
@@ -33,18 +34,20 @@ const Home = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView
-      style={{
-        backgroundColor: Colors.white,
-        ...StyleSheet.absoluteFill,
-      }}
-    >
-      <Button
-        text={'Create New Connection'}
-        onPress={() => navigation.navigate('Create Connection')}
-      />
-      <Connections connections={connections} onPress={(item) => openVideoPage(item)} />
-    </SafeAreaView>
+
+      <SafeAreaView
+        style={{
+          backgroundColor: Colors.white,
+          ...StyleSheet.absoluteFill,
+        }}
+      >
+        <StatusBar backgroundColor="#6a51ae" barStyle="dark-content"/>
+        <Button
+          text={'Create New Connection'}
+          onPress={() => navigation.navigate(Screens.createConnection)}
+        />
+        <Connections connections={connections} onPress={(item) => openVideoPage(item)} />
+      </SafeAreaView>
   );
 };
 

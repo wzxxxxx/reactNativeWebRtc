@@ -1,10 +1,10 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 
-export const Option = (props) => {
+export const Option = ({label, navigateTo}) => {
   return (
-    <TouchableOpacity style={styles.container} onPress={() => props.navigateTo()}>
-      <Text style={styles.label}>{props.label}</Text>
+    <TouchableOpacity style={styles.container} onPress={() => navigateTo()}>
+      <Text style={styles.label}>{label}</Text>
     </TouchableOpacity>
   );
 };

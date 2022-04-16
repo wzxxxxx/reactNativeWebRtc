@@ -1,30 +1,19 @@
 import React from 'react';
-import {
-  StyleSheet, Text, TouchableOpacity, View,
-} from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-export function Select(props) {
+export const Select = ({ label, required, navigateTo, selectedOption }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.label}>
-        {props.label}
-        {
-          props.required && <Text style={{ color: 'red' }}> *</Text>
-        }
+        {label}
+        {required && <Text style={{ color: 'red' }}> *</Text>}
       </Text>
-      <TouchableOpacity
-        style={styles.touchArea}
-        onPress={() => props.navigateTo()}
-      >
-        <Text
-          style={styles.selected}
-        >
-          {props.selectedText}
-        </Text>
+      <TouchableOpacity style={styles.touchArea} onPress={() => navigateTo()}>
+        <Text style={styles.selectedOption}>{selectedOption}</Text>
       </TouchableOpacity>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   arrow: {
@@ -47,7 +36,7 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     width: 100,
   },
-  selected: {
+  selectedOption: {
     color: 'gray',
     fontSize: 18,
     marginRight: 5,

@@ -10,7 +10,7 @@ export const ListItemType = {
   option: 'option',
 };
 
-export const List = (props) => {
+export const List = ({ listProps, defaultMarginTop }) => {
   const renderItem = ({ item }) => {
     switch (item.type) {
       case ListItemType.input:
@@ -19,6 +19,7 @@ export const List = (props) => {
             label={item.label}
             required={item.required}
             onChange={(value) => item.onChange(value)}
+            keyboardType={item.keyboardType}
           />
         );
       case ListItemType.select:
@@ -27,7 +28,7 @@ export const List = (props) => {
             label={item.label}
             required={item.required}
             navigateTo={() => item.navigateTo()}
-            selectedText={item.selectedText}
+            selectedOption={item.selectedOption}
           />
         );
       case ListItemType.option:
@@ -38,9 +39,9 @@ export const List = (props) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={StyleSheet.flatten([styles.container, defaultMarginTop && { marginTop: 20 }])}>
       <FlatList
-        data={props.props}
+        data={listProps}
         renderItem={renderItem}
         alwaysBounceVertical={false}
         ItemSeparatorComponent={() => <View style={styles.separator} />}

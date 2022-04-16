@@ -1,7 +1,7 @@
-import { View } from 'react-native';
 import { List, ListItemType } from '../components/List/List';
 import React, { useState } from 'react';
 import { Button } from '../components/Button';
+import { Screens } from '../Screens';
 
 const TurnServer = ({ navigation }) => {
   const [ip, setIp] = useState('');
@@ -43,7 +43,7 @@ const TurnServer = ({ navigation }) => {
   ];
 
   const save = () => {
-    navigation.navigate('Create Connection', {
+    navigation.navigate(Screens.createConnection, {
       turnServer: {
         ip: ip,
         port: port,
@@ -55,8 +55,7 @@ const TurnServer = ({ navigation }) => {
 
   return (
     <>
-      <View style={{ marginTop: 20 }} />
-      <List props={props} />
+      <List listProps={props} defaultMarginTop/>
       <Button text={'Save'} onPress={save} />
     </>
   );

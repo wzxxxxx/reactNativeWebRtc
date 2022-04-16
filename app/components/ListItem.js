@@ -4,7 +4,6 @@ import React from 'react';
 const ListItem = (props) => {
   const { id, signalServer, stunServer, turnServer } = props.item;
   const onPressListItem = props.onPress;
-  // console.log(JSON.stringify(props));
   const signalServerStr = `${JSON.parse(signalServer)?.protocol}://${
     JSON.parse(signalServer)?.ip
   }:${JSON.parse(signalServer)?.port}`;
