@@ -7,6 +7,7 @@ import SafeAreaView from 'react-native/Libraries/Components/SafeAreaView/SafeAre
 import ListItem from '../components/ListItem';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Screens } from '../Screens';
+import i18n from 'i18n-js';
 
 const Home = ({ navigation }) => {
   const [connections, setConnections] = useState([]);
@@ -34,16 +35,14 @@ const Home = ({ navigation }) => {
   };
 
   return (
-
       <SafeAreaView
         style={{
           backgroundColor: Colors.white,
           ...StyleSheet.absoluteFill,
         }}
       >
-        <StatusBar backgroundColor="#6a51ae" barStyle="dark-content"/>
         <Button
-          text={'Create New Connection'}
+          text={i18n.t('createNewConnection')}
           onPress={() => navigation.navigate(Screens.createConnection)}
         />
         <Connections connections={connections} onPress={(item) => openVideoPage(item)} />

@@ -1,0 +1,35 @@
+{
+  "home": "Home",
+  "createConnection": "Create Connection",
+  "video": "Video",
+  "protocol": "Protocol",
+  "stunServer": "Stun Server",
+  "turnServer": "Turn Server",
+
+  "createConnection_new": "Create New Connection",
+  "createConnection_targetId": "Target ID",
+  "createConnection_signalServer": "Signal Server",
+  "createConnection_protocol": "Protocol",
+  "createConnection_ipAddress": "IP Address",
+  "createConnection_port": "Port",
+  "createConnection_stunServer": "Stun Server",
+  "createConnection_turnServer": "Turn Server",
+  "createConnection_connect": "Connect",
+
+  "protocol_http": "http",
+  "protocol_https": "https",
+  "protocol_ws": "ws",
+  "protocol_wss": "wss",
+
+  "stunServer_ipAddress": "IP Address",
+  "stunServer_port": "Port",
+  "stunServer_save": "Save",
+
+  "turnServer_ipAddress": "IP Address",
+  "turnServer_port": "Port",
+  "turnServer_userName": "UserName",
+  "turnServer_password": "Password",
+  "turnServer_save": "Save",
+
+  "video_disconnect": "Disconnect"
+}

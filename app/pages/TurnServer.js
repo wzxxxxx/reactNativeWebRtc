@@ -2,6 +2,7 @@ import { List, ListItemType } from '../components/List/List';
 import React, { useState } from 'react';
 import { Button } from '../components/Button';
 import { Screens } from '../Screens';
+import i18n from 'i18n-js';
 
 const TurnServer = ({ navigation }) => {
   const [ip, setIp] = useState('');
@@ -12,15 +13,14 @@ const TurnServer = ({ navigation }) => {
   const props = [
     {
       type: ListItemType.input,
-      label: 'IP address',
+      label: i18n.t('turnServer_ipAddress'),
       onChange: (value) => {
         setIp(value);
       },
-      keyboardType: 'numeric'
     },
     {
       type: ListItemType.input,
-      label: 'Port',
+      label: i18n.t('turnServer_port'),
       onChange: (value) => {
         setPort(value);
       },
@@ -28,14 +28,14 @@ const TurnServer = ({ navigation }) => {
     },
     {
       type: ListItemType.input,
-      label: 'UserName',
+      label: i18n.t('turnServer_userName'),
       onChange: (value) => {
         setUserName(value);
       },
     },
     {
       type: ListItemType.input,
-      label: 'Password',
+      label: i18n.t('turnServer_password'),
       onChange: (value) => {
         setPassword(value);
       },
@@ -56,7 +56,7 @@ const TurnServer = ({ navigation }) => {
   return (
     <>
       <List listProps={props} defaultMarginTop/>
-      <Button text={'Save'} onPress={save} />
+      <Button text={i18n.t('turnServer_save')} onPress={save} />
     </>
   );
 };

@@ -2,6 +2,7 @@ import { List } from '../components/List/List';
 import { ListItemType } from '../components/List/List';
 import React from 'react';
 import { Screens } from '../Screens';
+import i18n from 'i18n-js';
 
 const Protocols = {
   http: 'http',
@@ -14,28 +15,28 @@ const Protocol = ({ navigation }) => {
   const props = [
     {
       type: ListItemType.option,
-      label: 'http',
+      label: i18n.t('protocol_http'),
       navigateTo: () => {
         navigateTo(Screens.createConnection, Protocols.http);
       },
     },
     {
       type: ListItemType.option,
-      label: 'https',
+      label: i18n.t('protocol_https'),
       navigateTo: () => {
         navigateTo(Screens.createConnection, Protocols.https);
       },
     },
     {
       type: ListItemType.option,
-      label: 'ws',
+      label: i18n.t('protocol_ws'),
       navigateTo: () => {
         navigateTo(Screens.createConnection, Protocols.ws);
       },
     },
     {
       type: ListItemType.option,
-      label: 'wss',
+      label: i18n.t('protocol_wss'),
       navigateTo: () => {
         navigateTo(Screens.createConnection, Protocols.wss);
       },

@@ -5,6 +5,7 @@ import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { Button } from '../components/Button';
 import { List, ListItemType } from '../components/List/List';
 import { Screens } from '../Screens';
+import i18n from 'i18n-js';
 
 const ConnectionParamType = {
   signal: 'signal',
@@ -93,7 +94,7 @@ const CreateConnection = ({ route, navigation }) => {
   const signalServerProps = [
     {
       type: ListItemType.select,
-      label: 'Protocol',
+      label: i18n.t('createConnection_protocol'),
       required: true,
       navigateTo: () => {
         navigateTo(Screens.protocol);
@@ -102,16 +103,15 @@ const CreateConnection = ({ route, navigation }) => {
     },
     {
       type: ListItemType.input,
-      label: 'IP address',
+      label: i18n.t('createConnection_ipAddress'),
       required: true,
       onChange: (value) => {
         setConnectionParameter(ConnectionParamType.signal, 'ip', value);
       },
-      keyboardType: 'numeric',
     },
     {
       type: ListItemType.input,
-      label: 'Port',
+      label: i18n.t('createConnection_port'),
       required: true,
       onChange: (value) => {
         setConnectionParameter(ConnectionParamType.signal, 'port', value);
@@ -123,7 +123,7 @@ const CreateConnection = ({ route, navigation }) => {
   const targetIdProps = [
     {
       type: ListItemType.input,
-      label: 'Target ID',
+      label: i18n.t('createConnection_targetId'),
       required: true,
       onChange: (value) => {
         setUserId(value);
@@ -134,7 +134,7 @@ const CreateConnection = ({ route, navigation }) => {
   const stunServerProps = [
     {
       type: ListItemType.select,
-      label: 'Stun Server',
+      label: i18n.t('createConnection_stunServer'),
       navigateTo: () => {
         navigateTo(Screens.stunServer);
       },
@@ -145,7 +145,7 @@ const CreateConnection = ({ route, navigation }) => {
   const turnServerProps = [
     {
       type: ListItemType.select,
-      label: 'Turn Server',
+      label: i18n.t('createConnection_turnServer'),
       navigateTo: () => {
         navigateTo(Screens.turnServer);
       },
@@ -180,11 +180,11 @@ const CreateConnection = ({ route, navigation }) => {
     >
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
       <List listProps={targetIdProps} defaultMarginTop />
-      <Text style={styles.title}>Signal Server</Text>
+      <Text style={styles.title}>{i18n.t('createConnection_signalServer')}</Text>
       <List listProps={signalServerProps} />
       <List listProps={stunServerProps} defaultMarginTop />
       <List listProps={turnServerProps} defaultMarginTop />
-      <Button text={'Connect'} onPress={connect} />
+      <Button text={i18n.t('createConnection_connect')} onPress={connect} />
     </SafeAreaView>
   );
 };

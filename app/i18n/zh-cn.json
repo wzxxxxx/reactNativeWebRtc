@@ -1,0 +1,35 @@
+{
+  "home": "主页",
+  "createConnection": "创建新连接",
+  "video": "视频",
+  "protocol": "选择协议",
+  "stunServer": "Stun服务器",
+  "turnServer": "Turn服务器",
+
+  "createConnection_new": "创建新连接",
+  "createConnection_targetId": "对方ID",
+  "createConnection_signalServer": "信令服务器",
+  "createConnection_protocol": "协议",
+  "createConnection_ipAddress": "IP地址",
+  "createConnection_port": "端口",
+  "createConnection_stunServer": "Stun服务器",
+  "createConnection_turnServer": "Turn服务器",
+  "createConnection_connect": "连接",
+
+  "protocol_http": "http",
+  "protocol_https": "https",
+  "protocol_ws": "ws",
+  "protocol_wss": "wss",
+
+  "stunServer_ipAddress": "IP地址",
+  "stunServer_port": "端口",
+  "stunServer_save": "保存",
+
+  "turnServer_ipAddress": "IP地址",
+  "turnServer_port": "端口",
+  "turnServer_userName": "用户名",
+  "turnServer_password": "密码",
+  "turnServer_save": "保存",
+
+  "video_disconnect": "断开连接"
+}

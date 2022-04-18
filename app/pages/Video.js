@@ -6,6 +6,7 @@ import { Colors } from 'react-native/Libraries/NewAppScreen';
 import SafeAreaView from 'react-native/Libraries/Components/SafeAreaView/SafeAreaView';
 import { Button } from '../components/Button';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import i18n from 'i18n-js';
 
 const Video = ({ route }) => {
   const { id, signalServer, stunServer, turnServer } = route.params;
@@ -62,7 +63,7 @@ const Video = ({ route }) => {
         }}
       >
         {remoteStream && <RTCView streamURL={remoteStream?.toURL()} style={{ flex: 1 }} />}
-        <Button text={'Disconnect'} onPress={disconnect} />
+        <Button text={i18n.t('video_disconnect')} onPress={disconnect} />
       </SafeAreaView>
     </>
   );

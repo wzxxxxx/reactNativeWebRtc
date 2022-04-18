@@ -2,6 +2,7 @@ import { List, ListItemType } from '../components/List/List';
 import React, { useState } from 'react';
 import { Button } from '../components/Button';
 import { Screens } from '../Screens';
+import i18n from 'i18n-js';
 
 const StunServer = ({ navigation }) => {
   const [ip, setIp] = useState('');
@@ -10,19 +11,18 @@ const StunServer = ({ navigation }) => {
   const props = [
     {
       type: ListItemType.input,
-      label: 'IP address',
+      label: i18n.t('stunServer_ipAddress'),
       onChange: (value) => {
         setIp(value);
       },
-      keyboardType: 'numeric'
     },
     {
       type: ListItemType.input,
-      label: 'Port',
+      label: i18n.t('stunServer_port'),
       onChange: (value) => {
         setPort(value);
       },
-      keyboardType: 'numeric'
+      keyboardType: 'numeric',
     },
   ];
 
@@ -37,8 +37,8 @@ const StunServer = ({ navigation }) => {
 
   return (
     <>
-      <List listProps={props} defaultMarginTop/>
-      <Button text={'Save'} onPress={save} />
+      <List listProps={props} defaultMarginTop />
+      <Button text={i18n.t('stunServer_save')} onPress={save} />
     </>
   );
 };
