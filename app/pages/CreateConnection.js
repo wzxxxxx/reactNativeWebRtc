@@ -191,10 +191,10 @@ const CreateConnection = ({ route, navigation }) => {
 
 const styles = StyleSheet.create({
   title: {
-    fontSize: 18,
-    fontWeight: '600',
-    marginTop: 20,
-    marginLeft: 20,
+    fontSize: 14,
+    color: 'gray',
+    marginTop: 30,
+    marginLeft: 32,
     marginBottom: 10,
   },
 });

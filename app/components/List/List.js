@@ -41,6 +41,7 @@ export const List = ({ listProps, defaultMarginTop }) => {
   return (
     <View style={StyleSheet.flatten([styles.container, defaultMarginTop && { marginTop: 20 }])}>
       <FlatList
+        style={styles.list}
         data={listProps}
         renderItem={renderItem}
         alwaysBounceVertical={false}
@@ -53,13 +54,17 @@ export const List = ({ listProps, defaultMarginTop }) => {
 const styles = StyleSheet.create({
   container: {
     width: '100%',
+    paddingLeft: 12,
+    paddingRight: 12,
+  },
+  list: {
+    width: '100%',
     backgroundColor: 'white',
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
-    borderColor: 'gainsboro',
+    borderRadius: 8
   },
   separator: {
     width: '100%',
+    marginLeft: 20,
     height: 1,
     backgroundColor: 'gainsboro',
   },

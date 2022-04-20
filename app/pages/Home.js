@@ -42,7 +42,7 @@ const Home = ({ navigation }) => {
         }}
       >
         <Button
-          text={i18n.t('createNewConnection')}
+          text={i18n.t('createConnection_new')}
           onPress={() => navigation.navigate(Screens.createConnection)}
         />
         <Connections connections={connections} onPress={(item) => openVideoPage(item)} />
