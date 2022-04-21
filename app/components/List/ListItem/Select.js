@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import IconAngleRight from "../../../svgs/IconAngleRight";
 
 export const Select = ({ label, required, navigateTo, selectedOption }) => {
   return (
@@ -10,6 +11,7 @@ export const Select = ({ label, required, navigateTo, selectedOption }) => {
       </Text>
       <TouchableOpacity style={styles.touchArea} onPress={() => navigateTo()}>
         <Text style={styles.selectedOption}>{selectedOption}</Text>
+        <IconAngleRight/>
       </TouchableOpacity>
     </View>
   );

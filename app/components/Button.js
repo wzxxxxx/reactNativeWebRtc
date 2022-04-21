@@ -20,11 +20,11 @@ const styles = StyleSheet.create({
   },
   touchArea: {
     width: '100%',
-    height: 40,
+    height: 45,
     backgroundColor: 'limegreen',
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 6,
+    borderRadius: 8,
   },
   text: {
     color: 'white',

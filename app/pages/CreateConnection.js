@@ -22,8 +22,6 @@ const CreateConnection = ({ route, navigation }) => {
   const [stunServerText, setStunServerText] = useState('');
   const [turnServerText, setTurnServerText] = useState('');
 
-  const isDarkMode = useColorScheme() === 'dark';
-
   const [signalServer, setSignalServer] = useState({
     protocol: '',
     ip: '',
@@ -97,7 +95,7 @@ const CreateConnection = ({ route, navigation }) => {
       label: i18n.t('createConnection_protocol'),
       required: true,
       navigateTo: () => {
-        navigateTo(Screens.protocol);
+        navigateTo(Screens.protocol, protocolText);
       },
       selectedOption: protocolText,
     },
@@ -166,8 +164,8 @@ const CreateConnection = ({ route, navigation }) => {
     });
   };
 
-  const navigateTo = (value) => {
-    navigation.navigate(value);
+  const navigateTo = (value, protocolText) => {
+    navigation.navigate(value, { protocol: protocolText });
   };
 
   return (
@@ -178,7 +176,7 @@ const CreateConnection = ({ route, navigation }) => {
         flex: 1,
       }}
     >
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+
       <List listProps={targetIdProps} defaultMarginTop />
       <Text style={styles.title}>{i18n.t('createConnection_signalServer')}</Text>
       <List listProps={signalServerProps} />

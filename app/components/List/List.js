@@ -32,7 +32,7 @@ export const List = ({ listProps, defaultMarginTop }) => {
           />
         );
       case ListItemType.option:
-        return <Option label={item.label} navigateTo={() => item.navigateTo()} />;
+        return <Option label={item.label} isSelected={item.isSelected} navigateTo={() => item.navigateTo()} />;
       default:
         break;
     }

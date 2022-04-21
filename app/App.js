@@ -33,7 +33,7 @@ const App: () => Node = () => {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator
+       <Stack.Navigator
         initialRouteName="Home"
         screenOptions={{
           headerStyle: {

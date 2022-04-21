@@ -41,6 +41,7 @@ const Home = ({ navigation }) => {
           ...StyleSheet.absoluteFill,
         }}
       >
+        <StatusBar barStyle={'dark-content'} />
         <Button
           text={i18n.t('createConnection_new')}
           onPress={() => navigation.navigate(Screens.createConnection)}

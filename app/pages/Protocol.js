@@ -11,11 +11,13 @@ const Protocols = {
   wss: 'wss',
 };
 
-const Protocol = ({ navigation }) => {
+const Protocol = ({ route, navigation }) => {
+  const protocol = route.params?.protocol;
   const props = [
     {
       type: ListItemType.option,
       label: i18n.t('protocol_http'),
+      isSelected: protocol === Protocols.http,
       navigateTo: () => {
         navigateTo(Screens.createConnection, Protocols.http);
       },
@@ -23,6 +25,7 @@ const Protocol = ({ navigation }) => {
     {
       type: ListItemType.option,
       label: i18n.t('protocol_https'),
+      isSelected: protocol === Protocols.https,
       navigateTo: () => {
         navigateTo(Screens.createConnection, Protocols.https);
       },
@@ -30,6 +33,7 @@ const Protocol = ({ navigation }) => {
     {
       type: ListItemType.option,
       label: i18n.t('protocol_ws'),
+      isSelected: protocol === Protocols.ws,
       navigateTo: () => {
         navigateTo(Screens.createConnection, Protocols.ws);
       },
@@ -37,6 +41,7 @@ const Protocol = ({ navigation }) => {
     {
       type: ListItemType.option,
       label: i18n.t('protocol_wss'),
+      isSelected: protocol === Protocols.wss,
       navigateTo: () => {
         navigateTo(Screens.createConnection, Protocols.wss);
       },

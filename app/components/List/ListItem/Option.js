@@ -1,10 +1,12 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import IconCheck from '../../../svgs/IconCheck';
 
-export const Option = ({label, navigateTo}) => {
+export const Option = ({ label, isSelected, navigateTo }) => {
   return (
     <TouchableOpacity style={styles.container} onPress={() => navigateTo()}>
       <Text style={styles.label}>{label}</Text>
+      {isSelected && <IconCheck />}
     </TouchableOpacity>
   );
 };
@@ -14,6 +16,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     height: 50,
     alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingRight: 30,
   },
   label: {
     width: 100,
