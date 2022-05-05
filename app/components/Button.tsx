@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     width: '100%',
     marginTop: 40,
     paddingLeft: 12,
-    paddingRight: 12
+    paddingRight: 12,
   },
   touchArea: {
     width: '100%',

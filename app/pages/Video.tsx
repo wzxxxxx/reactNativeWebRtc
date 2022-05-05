@@ -1,14 +1,15 @@
 import { DeviceEventEmitter, StyleSheet } from 'react-native';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { initConnection } from '../webrtc';
 import { RTCView } from 'react-native-webrtc';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import SafeAreaView from 'react-native/Libraries/Components/SafeAreaView/SafeAreaView';
 import { Button } from '../components/Button';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import i18n from 'i18n-js';
+import { TranslationContext } from '../App';
 
 const Video = ({ route }) => {
+  const t = useContext(TranslationContext);
   const { id, signalServer, stunServer, turnServer } = route.params;
   const [remoteStream, setRemoteStream] = useState(null);
   const handleReceiveStream = useCallback(
@@ -63,7 +64,7 @@ const Video = ({ route }) => {
         }}
       >
         {remoteStream && <RTCView streamURL={remoteStream?.toURL()} style={{ flex: 1 }} />}
-        <Button text={i18n.t('video_disconnect')} onPress={disconnect} />
+        <Button text={t('video_disconnect')} onPress={disconnect} />
       </SafeAreaView>
     </>
   );
